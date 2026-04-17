@@ -6,29 +6,19 @@ import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import Image from 'next/image';
 import Rounded from '../../common/RoundedButton';
+import { projects as projectData } from '../../data';
 
-const projects = [
-  {
-    title: "C2 Montreal",
-    src: "c2montreal.png",
-    color: "#000000"
-  },
-  {
-    title: "Office Studio",
-    src: "officestudio.png",
-    color: "#141414"
-  },
-  {
-    title: "Locomotive",
-    src: "locomotive.png",
-    color: "#1a1a1a"
-  },
-  {
-    title: "Silencio",
-    src: "silencio.png",
-    color: "#242424"
-  }
-]
+const INITIAL_VISIBLE = 5;
+
+const palette = ['#000000', '#141414', '#1a1a1a', '#242424', '#111111', '#161616', '#1c1c1c', '#212121'];
+
+const projects = projectData.map((p, i) => ({
+  slug: p.slug,
+  title: p.title,
+  link: p.link,
+  src: p.src,
+  color: palette[i % palette.length],
+}));
 
 const scaleAnimation = {
     initial: {scale: 0, x:"-50%", y:"-50%"},
@@ -37,6 +27,9 @@ const scaleAnimation = {
 }
 
 export default function Home() {
+
+  const [showAll, setShowAll] = useState(false);
+  const visibleProjects = showAll ? projects : projects.slice(0, INITIAL_VISIBLE);
 
   const [modal, setModal] = useState({active: false, index: 0})
   const { active, index } = modal;
@@ -77,29 +70,47 @@ export default function Home() {
   }
 
   return (
-  <main onMouseMove={(e) => {moveItems(e.clientX, e.clientY)}} className={styles.projects}>
-    <div className={styles.body}>
+  <main id="projects" onMouseMove={(e) => {moveItems(e.clientX, e.clientY)}} className={styles.projects}>
+    <div id="projects-list" className={styles.body}>
       {
-        projects.map( (project, index) => {
-          return <Project index={index} title={project.title} manageModal={manageModal} key={index}/>
+        visibleProjects.map( (project, index) => {
+          return <Project index={index} title={project.title} link={project.link} manageModal={manageModal} key={project.slug}/>
         })
       }
     </div>
-    <Rounded>
-      <p>More work</p>
-    </Rounded>
+    {projects.length > INITIAL_VISIBLE && (
+    <div className={styles.moreToggle}>
+      <Rounded
+        aria-expanded={showAll}
+        aria-controls="projects-list"
+        onClick={() => setShowAll((v) => !v)}
+        style={{ cursor: 'pointer' }}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            setShowAll((v) => !v);
+          }
+        }}
+      >
+        <p>{showAll ? 'Show less' : 'Show more'}</p>
+      </Rounded>
+    </div>
+    )}
     <>
         <motion.div ref={modalContainer} variants={scaleAnimation} initial="initial" animate={active ? "enter" : "closed"} className={styles.modalContainer}>
             <div style={{top: index * -100 + "%"}} className={styles.modalSlider}>
             {
-                projects.map( (project, index) => {
+                visibleProjects.map( (project, index) => {
                 const { src, color } = project
-                return <div className={styles.modal} style={{backgroundColor: color}} key={`modal_${index}`}>
-                    <Image 
-                    src={`/images/${src}`}
-                    width={300}
-                    height={0}
-                    alt="image"
+                return <div className={styles.modal} style={{backgroundColor: color}} key={`modal_${project.slug}`}>
+                    <Image
+                      src={src}
+                      alt=""
+                      fill
+                      sizes="(max-width: 767px) 88vw, (max-width: 1024px) 78vw, 420px"
+                      className={styles.modalImage}
                     />
                 </div>
                 })

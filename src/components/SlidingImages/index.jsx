@@ -1,6 +1,6 @@
 'use client';
 import styles from './page.module.scss'
-import { projects } from '../../data';
+import { slidingImagesProjects } from '../../data';
 import Card from '../Card';
 import { useScroll } from 'framer-motion';
 import { useRef } from 'react';
@@ -15,11 +15,11 @@ export default function Home() {
   return (
     <section ref={container} className={styles.main} aria-label="Featured projects">
       {
-        projects.map( (project, i) => {
-          const targetScale = 1 - ( (projects.length - i) * 0.05);
+        slidingImagesProjects.map( (project, i) => {
+          const targetScale = 1 - ( (slidingImagesProjects.length - i) * 0.05);
           return (
             <Card
-              key={`p_${i}`}
+              key={project.slug}
               i={i}
               {...project}
               progress={scrollYProgress}

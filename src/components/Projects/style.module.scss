@@ -16,12 +16,26 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        margin-bottom: 100px;
+        margin-bottom: 0;
+    }
+
+    /* Breathing room + divider so the toggle isn’t cramped against the last row */
+    .moreToggle{
+        width: 100%;
+        max-width: 1400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: clamp(2rem, 5vw, 3rem);
+        padding-top: clamp(1.75rem, 4vw, 2.5rem);
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        padding-bottom: clamp(2rem, 5vw, 4rem);
     }
     
+    /* ~16:9, compact size so the hover preview doesn’t dominate the viewport */
     .modalContainer{
-        height: 350px;
-        width: 400px;
+        width: min(68vw, 420px);
+        aspect-ratio: 16 / 9;
         position: fixed;
         top: 50%;
         left: 50%;
@@ -41,13 +55,14 @@
     .modal{
         height: 100%;
         width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        position: relative;
+        overflow: hidden;
     }
-    
-    .modal img{
-        height: auto;
+
+    /* Full screenshot visible; 16:9 frame aligns with most exports — minimal side crop vs old box */
+    .modalImage{
+        object-fit: contain;
+        object-position: center center;
     }
     
     .cursor, .cursorLabel{
@@ -82,12 +97,18 @@
         margin-top: 150px;
         
         .body {
-            margin-bottom: 60px;
+            margin-bottom: 0;
+        }
+
+        .moreToggle {
+            margin-top: clamp(1.5rem, 4vw, 2.25rem);
+            padding-top: clamp(1.25rem, 3vw, 2rem);
+            padding-bottom: clamp(1.5rem, 4vw, 3rem);
         }
         
         .modalContainer {
-            height: 280px;
-            width: 320px;
+            width: min(78vw, 360px);
+            aspect-ratio: 16 / 9;
         }
         
         .cursor, .cursorLabel {
@@ -99,17 +120,23 @@
     
     // Mobile styles (< 768px)
     @media (max-width: 767px) {
-        padding-left: 20px;
-        padding-right: 20px;
+        padding-left: max(16px, env(safe-area-inset-left));
+        padding-right: max(16px, env(safe-area-inset-right));
         margin-top: 100px;
         
         .body {
-            margin-bottom: 40px;
+            margin-bottom: 0;
+        }
+
+        .moreToggle {
+            margin-top: 1.5rem;
+            padding-top: 1.25rem;
+            padding-bottom: 2rem;
         }
         
         .modalContainer {
-            height: 200px;
-            width: 280px;
+            width: min(88vw, 300px);
+            aspect-ratio: 16 / 9;
         }
         
         .cursor, .cursorLabel {

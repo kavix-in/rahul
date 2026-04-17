@@ -1,222 +1,205 @@
-.cardContainer{
+.cardContainer {
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   position: sticky;
-  top: 0px;
-  .card{
-    display: flex;
-    flex-direction: column;
-    position: relative;
+  top: 0;
+}
+
+/* Must span the row so .card’s width: min(100%, 920px) resolves against a real width.
+   Without this, the <a> shrink-wraps to ~0 and the card collapses to a vertical line. */
+.cardLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.cardLink:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 4px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: -25%;
+  width: min(100%, 920px);
+  height: min(520px, 78vh);
+  max-width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  transform-origin: top;
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+}
+
+.media {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.imageShell {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-height: 200px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.inner {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.coverImage {
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Stronger band at bottom for handwriting sitting on the lower third */
+.imageGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.88) 0%,
+    rgba(0, 0, 0, 0.55) 32%,
+    rgba(0, 0, 0, 0.12) 58%,
+    transparent 78%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Bottom-center: reads like a signed caption on the photo */
+.signatureTitle {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(0.85rem, 3.5vw, 1.75rem);
+  top: auto;
+  margin: 0;
+  z-index: 2;
+  width: min(94%, 580px);
+  padding: 0 clamp(12px, 3vw, 20px);
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 1.2;
+  color: #EA580C;
+  letter-spacing: 0.01em;
+  transform: translateX(-50%);
+  transform-origin: center bottom;
+  text-shadow:
+    0 2px 24px rgba(0, 0, 0, 0.95),
+    0 1px 4px rgba(0, 0, 0, 0.92),
+    0 0 2px rgba(0, 0, 0, 0.85);
+}
+
+/* Slight organic tilt per card (fonts are loaded via next/font classNames in JSX) */
+.sig0 {
+  font-size: clamp(1.65rem, 4.8vw, 2.85rem);
+  transform: translateX(-50%) rotate(-1.25deg);
+}
+
+.sig1 {
+  font-size: clamp(1.75rem, 5vw, 3.1rem);
+  transform: translateX(-50%) rotate(0.9deg);
+}
+
+.sig2 {
+  font-size: clamp(1.85rem, 5.2vw, 2.95rem);
+  transform: translateX(-50%) rotate(-0.5deg);
+}
+
+.sig3 {
+  font-size: clamp(1.55rem, 4.4vw, 2.65rem);
+  transform: translateX(-50%) rotate(1.1deg);
+}
+
+@media (min-width: 1025px) {
+  .card {
     top: -25%;
-    height: 500px;
-    width: 1000px;
-    max-width: 100%;
-    border: 1px solid #999999;
-    border-radius: 6px;
-    padding:50px;
-    transform-origin: top;
-    h2{
-      text-align: center;
-      margin: 0px;
-      font-size: 28px;
-      font-family: var(--font-display), ui-sans-serif, system-ui;
-      font-weight: 400;
-      color: #ffffff;
-      line-height: 1.1;
-    }
-    .body{
-      display: flex;
-      height: 100%;
-      margin-top: 50px;
-      gap: 50px;
+  }
+}
 
-      .description{
-        width: 40%;
-        position: relative;
-        top: 10%;
-        p{
-          font-size: 16px;
-          color: #999999;
-          font-weight: 400;
-          &::first-letter{
-            font-size: 28px;
-            font-family: var(--font-display), ui-sans-serif, system-ui;
-          }
-        }
-        .linkRow{
-          display: flex;
-          align-items: center;
-          gap: 5px;
-          color: #ffffff;
-          a{
-            font-size: 12px;
-            font-family: var(--font-mono), ui-monospace, monospace;
-            letter-spacing: 1.2px;
-            text-transform: uppercase;
-            text-decoration: underline;
-            cursor: pointer;
-            color: #ffffff;
-          }
-        }
-      }
-
-      .imageContainer{
-        position: relative;
-        width: 60%;
-        height: 100%;
-        border-radius: 6px;
-        overflow: hidden;
-        .inner{
-          width: 100%;
-          height: 100%;
-        }
-        img{
-          object-fit: cover;
-        }
-      }
-    }
+@media (max-width: 1024px) and (min-width: 768px) {
+  .card {
+    width: 92%;
+    max-width: 760px;
+    height: min(480px, 75vh);
+    top: -20%;
   }
 
-  /* Large desktop: keep original art-directed proportions (before responsive tweaks elsewhere). */
-  @media (min-width: 1025px) {
-    .card {
-      width: 1000px;
-      height: 500px;
-      padding: 50px;
-      border-radius: 6px;
-      transform-origin: top;
-    }
+  .sig0 {
+    font-size: clamp(1.45rem, 4vw, 2.45rem);
   }
-  
-  // Tablet styles (768px - 1024px)
-  @media (max-width: 1024px) and (min-width: 768px) {
-    .card {
-      width: 90%;
-      max-width: 800px;
-      height: 450px;
-      padding: 40px;
-      top: -20%;
-      
-      h2 {
-        font-size: 24px;
-      }
-      
-      .body {
-        margin-top: 40px;
-        gap: 40px;
-        
-        .description {
-          width: 45%;
-          top: 8%;
-          
-          p {
-            font-size: 15px;
-            
-            &::first-letter {
-              font-size: 24px;
-            }
-          }
-          
-          .linkRow {
-            a {
-              font-size: 11px;
-            }
-          }
-        }
-        
-        .imageContainer {
-          width: 55%;
-        }
-      }
-    }
+  .sig1 {
+    font-size: clamp(1.55rem, 4.2vw, 2.65rem);
   }
-  
-  // Mobile: same sticky stack + scale interaction as desktop (one card per viewport)
-  @media (max-width: 767px) {
+  .sig2 {
+    font-size: clamp(1.6rem, 4.3vw, 2.55rem);
+  }
+  .sig3 {
+    font-size: clamp(1.35rem, 3.8vw, 2.25rem);
+  }
+}
+
+@media (max-width: 767px) {
+  .cardContainer {
     height: 100vh;
     height: 100dvh;
     min-height: 100dvh;
-    position: sticky;
-    top: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     padding-left: max(0px, env(safe-area-inset-left));
     padding-right: max(0px, env(safe-area-inset-right));
-    box-sizing: border-box;
+  }
 
-    .card {
-      width: 100%;
-      max-width: 100%;
-      height: min(560px, 88vh);
-      min-height: 0;
-      padding: clamp(16px, 4vw, 24px) clamp(12px, 3vw, 18px);
-      margin: 0;
-      border-radius: 0;
-      box-sizing: border-box;
-      transform-origin: top center;
+  .card {
+    top: 0;
+    width: 100%;
+    height: min(580px, 90dvh);
+    border-radius: 10px;
+    transform-origin: top center;
+  }
 
-      h2 {
-        font-size: clamp(1rem, 4.2vw, 1.25rem);
-        line-height: 1.2;
-        flex-shrink: 0;
-      }
+  .imageShell {
+    min-height: 220px;
+    border-radius: 10px;
+  }
 
-      .body {
-        flex-direction: row;
-        margin-top: clamp(16px, 4vw, 28px);
-        gap: clamp(10px, 3vw, 16px);
-        flex: 1;
-        min-height: 0;
-        height: auto;
+  .signatureTitle {
+    bottom: clamp(0.65rem, 3vw, 1.25rem);
+    width: min(96%, 100%);
+    padding: 0 10px;
+  }
 
-        .description {
-          width: 40%;
-          min-width: 0;
-          position: relative;
-          top: 0;
-          align-self: stretch;
-          display: flex;
-          flex-direction: column;
-
-          p {
-            font-size: clamp(0.65rem, 2.8vw, 0.8rem);
-            line-height: 1.45;
-            flex: 1;
-            min-height: 0;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-
-            &::first-letter {
-              font-size: clamp(1rem, 3.8vw, 1.15rem);
-            }
-          }
-
-          .linkRow {
-            margin-top: auto;
-            padding-top: 8px;
-            flex-shrink: 0;
-
-            a {
-              font-size: clamp(0.65rem, 2.5vw, 0.75rem);
-              min-height: 44px;
-              display: inline-flex;
-              align-items: center;
-            }
-          }
-        }
-
-        .imageContainer {
-          width: 60%;
-          min-width: 0;
-          height: 100%;
-          min-height: 120px;
-          border-radius: 6px;
-          flex: 1;
-        }
-      }
-    }
+  .sig0 {
+    font-size: clamp(1.35rem, 6.5vw, 2.05rem);
+  }
+  .sig1 {
+    font-size: clamp(1.45rem, 7vw, 2.15rem);
+  }
+  .sig2 {
+    font-size: clamp(1.5rem, 7.2vw, 2.1rem);
+  }
+  .sig3 {
+    font-size: clamp(1.25rem, 5.8vw, 1.85rem);
   }
 }

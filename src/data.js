@@ -1,37 +1,125 @@
-export const projects = [
-  {
-    title: "Matthias Leidinger",
-    description: "Originally hailing from Austria, Berlin-based photographer Matthias Leindinger is a young creative brimming with talent and ideas.",
-    src: "rock.jpg",
-    link: "https://www.ignant.com/2023/03/25/ad2186-matthias-leidingers-photographic-exploration-of-awe-and-wonder/",
-    color: "#111111"
-  },
-  {
-    title: "Clément Chapillon",
-    description: "This is a story on the border between reality and imaginary, about the contradictory feelings that the insularity of a rocky, arid, and wild territory provokes”—so French photographer Clément Chapillon describes his latest highly captivating project Les rochers fauves (French for ‘The tawny rocks’).",
-    src: "tree.jpg",
-    link: "https://www.ignant.com/2022/09/30/clement-chapillon-questions-geographical-and-mental-isolation-with-les-rochers-fauves/",
-    color: "#161616"
-  },
-  {
-    title: "Zissou",
-    description: "Though he views photography as a medium for storytelling, Zissou’s images don’t insist on a narrative. Both crisp and ethereal, they’re encoded with an ambiguity—a certain tension—that lets the viewer find their own story within them.",
-    src: "water.jpg",
-    link: "https://www.ignant.com/2023/10/28/capturing-balis-many-faces-zissou-documents-the-sacred-and-the-mundane-of-a-fragile-island/",
-    color: "#1c1c1c"
-  },
-  {
-    title: "Mathias Svold and Ulrik Hasemann",
-    description: "The coastlines of Denmark are documented in tonal colors in a pensive new series by Danish photographers Ulrik Hasemann and Mathias Svold; an ongoing project investigating how humans interact with and disrupt the Danish coast.",
-    src: "house.jpg",
-    link: "https://www.ignant.com/2019/03/13/a-photographic-series-depicting-the-uncertain-future-of-denmarks-treasured-coastlines/",
-    color: "#212121"
-  },
-  {
-    title: "Mark Rammers",
-    description: "Dutch photographer Mark Rammers has shared with IGNANT the first chapter of his latest photographic project, ‘all over again’—captured while in residency at Hektor, an old farm in Los Valles, Lanzarote. Titled ‘Beginnings’, the mesmerizing collection of images is a visual and meditative journey into the origins of regrets and the uncertainty of stepping into new unknowns.",
-    src: "cactus.jpg",
-    link: "https://www.ignant.com/2023/04/12/mark-rammers-all-over-again-is-a-study-of-regret-and-the-willingness-to-move-forward/",
-    color: "#262626"
+function formatTitle(slug) {
+  return slug
+    .split('-')
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+}
+
+function normalizeLink(url) {
+  if (!url) return '';
+  const trimmed = url.trim();
+  if (/^https?:\/\//i.test(trimmed)) return trimmed;
+  return `https://${trimmed}`;
+}
+
+const palette = ['#111111', '#161616', '#1c1c1c', '#212121', '#262626', '#141414', '#181818', '#1a1a1a'];
+
+const MONTHS = {
+  jan: 0,
+  feb: 1,
+  mar: 2,
+  apr: 3,
+  may: 4,
+  jun: 5,
+  jul: 6,
+  aug: 7,
+  sep: 8,
+  oct: 9,
+  nov: 10,
+  dec: 11,
+};
+
+/**
+ * Parse heterogeneous date strings for sorting (most recent first).
+ * Supports: "2d ago", "M/D/YY", "Mon DD", "Mon DD, YYYY"
+ */
+function parseSortDate(dateStr) {
+  const s = dateStr.trim();
+  const lower = s.toLowerCase();
+  const now = new Date();
+
+  const daysAgo = lower.match(/^(\d+)\s*d\s*ago$/);
+  if (daysAgo) {
+    const d = new Date(now);
+    d.setDate(d.getDate() - parseInt(daysAgo[1], 10));
+    return d.getTime();
   }
-]
+
+  const hoursAgo = lower.match(/^(\d+)\s*h\s*ago$/);
+  if (hoursAgo) {
+    const d = new Date(now);
+    d.setHours(d.getHours() - parseInt(hoursAgo[1], 10));
+    return d.getTime();
+  }
+
+  const slash = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
+  if (slash) {
+    const month = parseInt(slash[1], 10) - 1;
+    const day = parseInt(slash[2], 10);
+    let y = parseInt(slash[3], 10);
+    if (y < 100) y += 2000;
+    return new Date(y, month, day).getTime();
+  }
+
+  const mon = lower.match(
+    /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\s+(\d{1,2})(?:,?\s*(\d{2,4}))?$/
+  );
+  if (mon) {
+    const mi = MONTHS[mon[1]];
+    const day = parseInt(mon[2], 10);
+    let y = mon[3] ? parseInt(mon[3], 10) : now.getFullYear();
+    if (mon[3] && mon[3].length === 2) y += 2000;
+    if (!mon[3]) {
+      const tryDate = new Date(y, mi, day);
+      if (tryDate > now) y -= 1;
+    }
+    return new Date(y, mi, day).getTime();
+  }
+
+  return 0;
+}
+
+const rawProjects = [
+  { name: 'liza-pavlakos', link: 'www.lizapavlakos.com', date: '7/11/24', thumb: 'Norliza.avif' },
+  { name: 'mind-step', link: 'www.mindstepleadership.com', date: 'Jan 29', thumb: 'MindStep-Leadership.avif' },
+  { name: 'small-screen', link: 'www.smallscreenmarketing.com', date: '12/15/25', thumb: 'smallscreenmarketing.avif' },
+  { name: 'speakers-solutions', link: 'www.speakerssolutions.com.au', date: '2d ago', thumb: 'speakers_solutions.avif' },
+  { name: 'sunnystate', link: 'sunnystateagency.vercel.app', date: 'Apr 13', thumb: 'sunnystate.avif' },
+  { name: 'coastland', link: 'coastland.vercel.app', date: 'Mar 21', thumb: 'COASTLAND.avif' },
+  { name: 'ekaa', link: 'ekaa.vercel.app', date: 'Mar 21', thumb: 'ekka.avif' },
+  { name: 'spadtek', link: 'www.spadtek.com', date: 'Mar 7', thumb: 'SPADTEK.avif' },
+  { name: 'ncg', link: 'www.ncgrp.se', date: 'Jan 26', thumb: 'ncg.avif' },
+  { name: 'morf-fe', link: 'morf-new.vercel.app/customiser', date: '6/12/25', thumb: 'Morf.avif' },
+  { name: 'mind-hub', link: 'mymindhub.vercel.app', date: '12/15/25', thumb: 'MyMindHub.avif' },
+  { name: 'upgrad', link: 'demo-upgrad.kurage.in', date: '11/17/22', thumb: 'upgrade.avif' },
+  { name: 'faeves', link: 'demo-faeves.kurage.in', date: '11/20/24', thumb: 'faves.avif' },
+  { name: 'digilife', link: 'digilife-jet.vercel.app', date: '1/16/23', thumb: 'Digilife.avif' },
+  { name: 'agrim', link: 'demo-agrim.kurage.in', date: '4/11/25', thumb: 'agrim.avif' },
+  { name: 'uptik-fe', link: 'www.uptiksolution.com', date: '5/29/25', thumb: 'upteck.avif' },
+  { name: 'join-with-me', link: 'www.joinwithme.in', date: 'Apr 17', thumb: 'joinwithme.avif' },
+];
+
+const sortedRaw = [...rawProjects].sort(
+  (a, b) => parseSortDate(b.date) - parseSortDate(a.date)
+);
+
+export const projects = sortedRaw.map((p, i) => ({
+  slug: p.name,
+  title: formatTitle(p.name),
+  description: `Last updated · ${p.date}`,
+  src: `/projects/${p.thumb}`,
+  link: normalizeLink(p.link),
+  color: palette[i % palette.length],
+}));
+
+/** Curated list for the SlidingImages section only (order preserved) */
+const SLIDING_IMAGES_SLUGS = [
+  'speakers-solutions',
+  'sunnystate',
+  'ekaa',
+  'spadtek',
+];
+
+export const slidingImagesProjects = SLIDING_IMAGES_SLUGS.map((slug) =>
+  projects.find((p) => p.slug === slug)
+).filter(Boolean);

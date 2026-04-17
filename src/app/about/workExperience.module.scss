@@ -1,0 +1,297 @@
+/* Work experience — scroll-synced stepper (Claude palette + terracotta accent) */
+
+.workSection {
+  margin-top: clamp(2.5rem, 6vw, 3.5rem);
+  padding-top: clamp(2rem, 5vw, 2.75rem);
+  border-top: 1px solid #e8e6dc;
+}
+
+/* —— Desktop: horizontal stepper —— */
+.stepperDesktop {
+  display: none;
+  position: sticky;
+  top: max(0.5rem, env(safe-area-inset-top));
+  z-index: 4;
+  margin-bottom: 1.75rem;
+  padding: 1rem 0.75rem 1.25rem;
+  background: rgba(245, 244, 237, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 16px;
+  border: 1px solid #f0eee6;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+}
+
+.stepperRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  gap: 0;
+}
+
+.stepUnit {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  min-width: 0;
+
+  &:first-child .hLine {
+    display: none;
+  }
+}
+
+.hLine {
+  flex: 1;
+  height: 3px;
+  margin-top: 11px;
+  min-width: 8px;
+  border-radius: 2px;
+  background: rgba(201, 100, 66, 0.22);
+  transition: background 0.35s ease;
+
+  &[data-done='true'] {
+    background: #c96442;
+  }
+}
+
+.stepBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.5rem;
+  margin: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  max-width: 34%;
+  min-height: 44px;
+  border-radius: 12px;
+  color: inherit;
+  font: inherit;
+  text-align: center;
+
+  &:focus-visible {
+    outline: 2px solid #3898ec;
+    outline-offset: 3px;
+  }
+}
+
+.stepCircle {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #c96442;
+  background: #faf9f5;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+
+  &[data-state='done'] {
+    background: #c96442;
+    border-color: #c96442;
+  }
+
+  &[data-state='current'] {
+    background: #c96442;
+    border-color: #c96442;
+    box-shadow: 0 0 0 4px rgba(201, 100, 66, 0.25);
+    transform: scale(1.15);
+  }
+
+  &[data-state='todo'] {
+    border-color: rgba(201, 100, 66, 0.35);
+    background: #faf9f5;
+  }
+}
+
+.stepCompany {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(0.65rem, 1.5vw, 0.8rem);
+  line-height: 1.25;
+  color: #5e5d59;
+  word-break: break-word;
+  max-width: 100%;
+
+  .stepBtn[data-active='true'] & {
+    color: #c96442;
+    font-weight: 600;
+  }
+}
+
+@media (min-width: 768px) {
+  .stepperDesktop {
+    display: block;
+  }
+}
+
+/* —— Job list + cards —— */
+.jobList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.workRow {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 0;
+  scroll-margin-top: 0.75rem;
+}
+
+.mobileTimeline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 22px;
+  flex-shrink: 0;
+  padding-top: 0.4rem;
+}
+
+.mDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(201, 100, 66, 0.4);
+  background: #faf9f5;
+  flex-shrink: 0;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+
+  &[data-state='done'] {
+    background: #c96442;
+    border-color: #c96442;
+  }
+
+  &[data-state='current'] {
+    background: #c96442;
+    border-color: #c96442;
+    transform: scale(1.2);
+    box-shadow: 0 0 0 3px rgba(201, 100, 66, 0.25);
+  }
+}
+
+.mLine {
+  flex: 1;
+  width: 3px;
+  min-height: 1.5rem;
+  margin: 4px 0;
+  border-radius: 2px;
+  background: rgba(201, 100, 66, 0.2);
+
+  &[data-state='done'] {
+    background: #c96442;
+  }
+
+  &[data-state='upcoming'] {
+    background: rgba(201, 100, 66, 0.22);
+  }
+}
+
+.jobCard {
+  flex: 1;
+  min-width: 0;
+  background: #faf9f5;
+  border: 1px solid #f0eee6;
+  border-radius: 16px;
+  padding: 1.25rem 1.35rem;
+  box-shadow: rgba(0, 0, 0, 0.04) 0 4px 24px;
+}
+
+.jobHead {
+  margin-bottom: 0.85rem;
+}
+
+.jobTitle {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 500;
+  font-size: 1.15rem;
+  line-height: 1.3;
+  color: #141413;
+  margin: 0 0 0.35rem;
+}
+
+.jobMeta {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.94rem;
+  color: #5e5d59;
+  margin: 0;
+}
+
+.jobCompany {
+  font-weight: 500;
+  color: #3d3d3a;
+}
+
+.jobSep {
+  margin: 0 0.25rem;
+  color: #b0aea5;
+}
+
+.jobPeriod {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.88rem;
+  color: #87867f;
+  margin: 0.35rem 0 0;
+}
+
+.jobBullets {
+  margin: 0;
+  padding-left: 1.15rem;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: #4d4c48;
+
+  li {
+    margin-bottom: 0.45rem;
+
+    &::marker {
+      color: #c96442;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .workRow {
+    gap: 0;
+    scroll-margin-top: 9rem;
+  }
+
+  .mobileTimeline {
+    display: none;
+  }
+
+  .jobCard {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .workRow {
+    gap: 0.75rem;
+  }
+
+  .mobileTimeline {
+    padding-top: 0.5rem;
+  }
+
+  .jobCard {
+    padding: 1.1rem 1rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .stepCompany {
+    font-size: 0.62rem;
+  }
+}

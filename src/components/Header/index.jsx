@@ -97,7 +97,7 @@ export default function Index() {
                 onClick={handleMenuClick}
             >
                 <AnimatePresence>
-                    {isActive && <Nav />}
+                    {isActive && <Nav onClose={() => setIsActive(false)} />}
                 </AnimatePresence>
             </motion.div>
             <Button

@@ -23,7 +23,8 @@
                 width: 80%;
                 height: 80%;
                 img{
-                    object-fit: cover;
+                    object-fit: contain;
+                    object-position: center;
                 }
             }
         }

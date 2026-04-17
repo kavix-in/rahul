@@ -70,4 +70,16 @@ body{
     font-style: normal;
     font-display: swap;
 }
-  
+
+/* Fixed header: keep section targets visible below the menu button */
+#projects,
+#contact {
+    scroll-margin-top: 120px;
+}
+
+@media (max-width: 768px) {
+    #projects,
+    #contact {
+        scroll-margin-top: 96px;
+    }
+}

@@ -22,17 +22,17 @@
         .el{
             width: 100%;
             height: 100%;
-            background-color: transparent;
-            border: 1px solid #ffffff;
+            background-color: #EA580C;
+            border: 1px solid #EA580C;
             box-sizing: border-box;
             p{
                 margin: 0px;
             }
             &:nth-of-type(2){
-                background-color: #ffffff;
-                border-color: #ffffff;
+                background-color: #EA580C;
+                border-color: #EA580C;
                 p{
-                    color: #000000;
+                    color: #ffffff;
                 }
             }
             &:hover{

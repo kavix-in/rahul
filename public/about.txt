@@ -1,0 +1,7 @@
+Favicon letter “R” is set in the Combo typeface (Google Fonts).
+
+Font: https://fonts.google.com/specimen/Combo
+Source: https://fonts.gstatic.com/s/combo/v21/BXRlvF3Jh_fIhg0iBu9y8Hf0.ttf
+
+The Combo font is licensed under the SIL Open Font License 1.1.
+Full license: https://scripts.sil.org/OFL

@@ -1,115 +1,338 @@
-.main{
-  min-height: 100vh;
-  min-height: 100dvh;
+/* About page — Claude-inspired typography & surfaces (claude/DESIGN.md) */
+
+.main {
   width: 100%;
-  max-width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
   box-sizing: border-box;
-  position: relative;
-  background-color: #000000;
-  overflow-x: clip;
+  padding: max(5.5rem, calc(env(safe-area-inset-top) + 4rem))
+    max(1.25rem, env(safe-area-inset-right))
+    max(3rem, env(safe-area-inset-bottom))
+    max(1.25rem, env(safe-area-inset-left));
+  background: transparent;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
-/* Mobile & small tablets: readable column, no spotlight */
-.stacked {
+.hero {
+  margin: 0;
+}
+
+.heroTop {
   display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+.imageContainer {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  overflow: hidden;
+
+  img {
+    object-fit: contain;
+  }
+}
+
+.heroIntro {
+  flex: 1;
+  min-width: 0;
+}
+
+.overline {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.63rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #87867f;
+  margin: 0 0 0.75rem;
+}
+
+.name {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 500;
+  font-size: clamp(2rem, 6vw, 3.25rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #141413;
+  margin: 0 0 1rem;
+}
+
+.meta {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(0.94rem, 2.8vw, 1.06rem);
+  line-height: 1.6;
+  color: #5e5d59;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.5rem;
+}
+
+.metaSep {
+  color: #b0aea5;
+  user-select: none;
+}
+
+.metaLink {
+  color: #c96442;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease;
+
+  &:hover {
+    border-bottom-color: #c96442;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #3898ec;
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+.focusRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.5rem;
+}
+
+.focusPill {
+  display: inline-flex;
   flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  max-width: 100%;
-  min-height: 100vh;
-  min-height: 100dvh;
-  box-sizing: border-box;
-  padding: max(5rem, calc(env(safe-area-inset-top) + 3rem))
-    max(1.25rem, env(safe-area-inset-right))
-    max(2.5rem, env(safe-area-inset-bottom))
-    max(1.25rem, env(safe-area-inset-left));
-  gap: clamp(1.75rem, 5vw, 2.5rem);
+  align-items: flex-start;
+  gap: 0.15rem;
+  padding: 0.65rem 1rem;
+  background: #faf9f5;
+  border: 1px solid #f0eee6;
+  border-radius: 12px;
+  box-shadow: 0 0 0 1px #e8e6dc;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: #4d4c48;
+
+  strong {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 500;
+    font-size: 1.05rem;
+    color: #c96442;
+  }
+}
+
+.focusDetail {
+  color: #5e5d59;
+  font-size: 0.82rem;
+}
+
+.section {
+  margin-top: clamp(2.5rem, 6vw, 3.5rem);
+  padding-top: clamp(2rem, 5vw, 2.75rem);
+  border-top: 1px solid #e8e6dc;
+}
+
+.h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 500;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  line-height: 1.2;
+  color: #141413;
+  margin: 0 0 1.25rem;
+}
+
+.h3 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 500;
+  font-size: 1.1rem;
+  line-height: 1.25;
+  color: #3d3d3a;
+  margin: 0 0 0.5rem;
 }
 
 .lead {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(1.06rem, 2.8vw, 1.15rem);
+  line-height: 1.65;
+  color: #4d4c48;
   margin: 0;
-  font-family: var(--font-display), ui-sans-serif, system-ui;
-  font-size: clamp(1.35rem, 4.8vw, 1.85rem);
-  font-weight: 400;
-  line-height: 1.12;
-  color: #ffffff;
 }
 
-.bio {
+.bullets {
   margin: 0;
-  font-size: clamp(0.95rem, 3.6vw, 1.05rem);
-  line-height: 1.55;
-  font-weight: 400;
-  color: #999999;
-  max-width: 40rem;
-}
+  padding-left: 1.15rem;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: #4d4c48;
 
-.highlight {
-  color: #ffffff;
-}
+  li {
+    margin-bottom: 0.45rem;
 
-/* Desktop: mouse spotlight (hidden on narrow viewports) */
-.desktop {
-  display: none;
-  position: relative;
-  height: 100vh;
-  height: 100dvh;
-  width: 100%;
-}
-
-/* Fine pointer only: spotlight breaks on touch / tablet primary input */
-@media (min-width: 768px) and (pointer: fine) {
-  .stacked {
-    display: none;
-  }
-
-  .desktop {
-    display: block;
-  }
-
-  .desktop .mask,
-  .desktop .body {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #999999;
-    font-size: clamp(28px, 4.5vw, 64px);
-    line-height: 1.05;
-    cursor: default;
-
-    & > p,
-    .bio {
-      width: min(100%, 1000px);
-      max-width: 100%;
-      margin: 0;
-      padding: clamp(20px, 4vw, 40px);
-      box-sizing: border-box;
+    &::marker {
+      color: #c96442;
     }
   }
+}
 
-  .desktop .mask {
-    mask-image: url('/mask.svg');
-    -webkit-mask-image: url('/mask.svg');
-    mask-repeat: no-repeat;
-    -webkit-mask-repeat: no-repeat;
-    mask-size: 40px;
-    -webkit-mask-size: 40px;
-    background: #ffffff;
-    position: absolute;
-    inset: 0;
-    color: #000000;
+.eduList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.eduCard {
+  padding: 1rem 1.15rem;
+  background: #ffffff;
+  border: 1px solid #f0eee6;
+  border-radius: 12px;
+}
+
+.eduSchool {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 500;
+  font-size: 1.05rem;
+  margin: 0 0 0.25rem;
+  color: #141413;
+}
+
+.eduCred {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.98rem;
+  color: #5e5d59;
+  margin: 0 0 0.35rem;
+}
+
+.eduMeta {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.88rem;
+  color: #87867f;
+  margin: 0;
+}
+
+.skillsGrid {
+  display: grid;
+  gap: 1rem;
+}
+
+.skillBlock {
+  padding: 1rem 1.15rem;
+  background: #faf9f5;
+  border: 1px solid #e8e6dc;
+  border-radius: 12px;
+}
+
+.skillText {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: #4d4c48;
+  margin: 0;
+}
+
+.projectCard {
+  margin-top: 1rem;
+  padding: 1.25rem 1.35rem;
+  background: #ffffff;
+  border: 1px solid #f0eee6;
+  border-radius: 16px;
+  box-shadow: rgba(0, 0, 0, 0.035) 0 4px 20px;
+}
+
+.projectHead {
+  margin-bottom: 0.85rem;
+}
+
+.projectTitle {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 500;
+  font-size: 1.2rem;
+  line-height: 1.25;
+  color: #141413;
+  margin: 0 0 0.35rem;
+}
+
+.projectStack {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.9rem;
+  color: #c96442;
+  font-weight: 500;
+  margin: 0 0 0.25rem;
+}
+
+.projectPeriod {
+  font-size: 0.88rem;
+  color: #87867f;
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+.footer {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e8e6dc;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #141413;
+  text-decoration: none;
+  padding: 0.5rem 0.75rem;
+  background: #e8e6dc;
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px #d1cfc5;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: #ded9ce;
   }
 
-  .desktop .body .bio {
-    color: #999999;
+  &:focus-visible {
+    outline: 2px solid #3898ec;
+    outline-offset: 2px;
   }
 }
 
-@media (min-width: 768px) and (max-width: 1024px) and (pointer: fine) {
-  .desktop .mask,
-  .desktop .body {
-    font-size: clamp(22px, 3.5vw, 48px);
+@media (min-width: 640px) {
+  .main {
+    max-width: 800px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .skillsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 380px) {
+  .main {
+    padding-left: max(0.875rem, env(safe-area-inset-left));
+    padding-right: max(0.875rem, env(safe-area-inset-right));
+  }
+
+  .heroTop {
+    gap: 1rem;
+  }
+
+  .imageContainer {
+    width: 72px;
+    height: 72px;
+  }
+
+  .focusPill {
+    width: 100%;
   }
 }
