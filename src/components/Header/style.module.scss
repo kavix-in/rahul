@@ -1,0 +1,53 @@
+.header{
+    position: fixed;
+    right: 50px;
+    top: 50px;
+    z-index: 10;
+
+    &.mobile {
+        right: max(16px, env(safe-area-inset-right));
+        top: max(16px, env(safe-area-inset-top));
+    }
+
+    &.active{
+        z-index: 1000;
+    }
+
+    /* Full-viewport hit area when menu is open on small screens */
+    &.mobile.active {
+        inset: 0;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        max-height: 100dvh;
+    }
+    
+    .menu{
+        width: 480px;
+        height: 650px;
+        background-color: #000000;
+        border: 1px solid #999999;
+        border-radius: 6px;
+        position: relative;
+        overflow-x: visible;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        box-sizing: border-box;
+    }
+
+    &.mobile .menu {
+        max-width: 100%;
+    }
+
+    /* Menu panel first, Menu/Close control on top */
+    &.mobile.active > div:first-of-type {
+        z-index: 1;
+    }
+
+    &.mobile.active > div:last-of-type {
+        z-index: 3;
+    }
+}

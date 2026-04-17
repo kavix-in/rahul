@@ -1,0 +1,73 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    max-width: 100%;
+}
+
+:root {
+    --color-velvet-black: #000000;
+    --color-showroom-white: #ffffff;
+    --color-silver-mist: #999999;
+}
+
+body{
+    margin: 0px;
+    width: 100%;
+    max-width: 100%;
+    background-color: var(--color-velvet-black);
+    color: var(--color-showroom-white);
+    font-weight: 400;
+}
+
+:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 1px #ffffff, 0 0 0 3px #000000;
+}
+
+/* Custom cursor only where there is a fine pointer and real hover (not touch). */
+@media (pointer: fine) and (hover: hover) {
+    body {
+        cursor: none;
+    }
+}
+
+/* Don’t use overflow-x: hidden on html — it prevents position: sticky from working correctly
+   for nested sections (e.g. SlidingImages card stack). Sections should constrain their own width. */
+
+@font-face {
+    font-family: 'Title';
+    src: url('/fonts/Neglige.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Body';
+    src: url('/fonts/NeueMontreal_Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Avgarde';
+    src: url('/fonts/AVGARDN_2.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Avgarde';
+    src: url('/fonts/AVGARDD_2.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+  

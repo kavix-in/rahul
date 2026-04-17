@@ -1,0 +1,102 @@
+.nav{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 100px 40px 50px 40px;
+    height: 100%;
+    min-height: 0;
+    box-sizing: border-box;
+    overflow-x: visible;
+    .body{
+        flex: 1 1 auto;
+        min-height: 0;
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+        min-width: 0;
+        .linkContainer{
+            perspective: 120px;
+            perspective-origin: bottom;
+            overflow: visible;
+        }
+        a{
+            text-decoration: none;
+            color: #ffffff;
+            font-family: var(--font-display), ui-sans-serif, system-ui;
+            font-size: clamp(36px, 5vw, 46px);
+            font-weight: 400;
+            line-height: 1.05;
+            display: inline-block;
+        }
+    }
+    .footer{
+        flex-shrink: 0;
+        margin-top: auto;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: clamp(12px, 4vw, 28px);
+        padding-bottom: max(12px, env(safe-area-inset-bottom));
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .socialLink {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        min-width: 44px;
+        min-height: 44px;
+        margin: 0;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 50%;
+        box-sizing: border-box;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+        &:hover,
+        &:focus-visible {
+            opacity: 0.75;
+            transform: scale(1.06);
+        }
+    }
+
+    .socialIcon {
+        width: 22px;
+        height: 22px;
+        flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+        justify-content: flex-start;
+        align-items: center;
+        text-align: center;
+        gap: 24px;
+        /* Clear the Menu/Close control (~56px) + extra breathing room */
+        padding: max(152px, calc(env(safe-area-inset-top) + 132px)) max(20px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+        .body {
+            align-items: center;
+            width: 100%;
+            padding-top: 8px;
+            gap: clamp(14px, 4vw, 22px);
+            .linkContainer {
+                perspective-origin: bottom center;
+            }
+            a {
+                font-size: clamp(38px, 12vw, 56px);
+                line-height: 1.2;
+                text-align: center;
+            }
+        }
+        .footer {
+            margin-top: auto;
+            padding-top: 24px;
+            padding-bottom: max(20px, env(safe-area-inset-bottom));
+            justify-content: center;
+            width: 100%;
+        }
+    }
+}

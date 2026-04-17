@@ -1,0 +1,115 @@
+.main{
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  background-color: #000000;
+  overflow-x: clip;
+}
+
+/* Mobile & small tablets: readable column, no spotlight */
+.stacked {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  box-sizing: border-box;
+  padding: max(5rem, calc(env(safe-area-inset-top) + 3rem))
+    max(1.25rem, env(safe-area-inset-right))
+    max(2.5rem, env(safe-area-inset-bottom))
+    max(1.25rem, env(safe-area-inset-left));
+  gap: clamp(1.75rem, 5vw, 2.5rem);
+}
+
+.lead {
+  margin: 0;
+  font-family: var(--font-display), ui-sans-serif, system-ui;
+  font-size: clamp(1.35rem, 4.8vw, 1.85rem);
+  font-weight: 400;
+  line-height: 1.12;
+  color: #ffffff;
+}
+
+.bio {
+  margin: 0;
+  font-size: clamp(0.95rem, 3.6vw, 1.05rem);
+  line-height: 1.55;
+  font-weight: 400;
+  color: #999999;
+  max-width: 40rem;
+}
+
+.highlight {
+  color: #ffffff;
+}
+
+/* Desktop: mouse spotlight (hidden on narrow viewports) */
+.desktop {
+  display: none;
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  width: 100%;
+}
+
+/* Fine pointer only: spotlight breaks on touch / tablet primary input */
+@media (min-width: 768px) and (pointer: fine) {
+  .stacked {
+    display: none;
+  }
+
+  .desktop {
+    display: block;
+  }
+
+  .desktop .mask,
+  .desktop .body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999999;
+    font-size: clamp(28px, 4.5vw, 64px);
+    line-height: 1.05;
+    cursor: default;
+
+    & > p,
+    .bio {
+      width: min(100%, 1000px);
+      max-width: 100%;
+      margin: 0;
+      padding: clamp(20px, 4vw, 40px);
+      box-sizing: border-box;
+    }
+  }
+
+  .desktop .mask {
+    mask-image: url('/mask.svg');
+    -webkit-mask-image: url('/mask.svg');
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-size: 40px;
+    -webkit-mask-size: 40px;
+    background: #ffffff;
+    position: absolute;
+    inset: 0;
+    color: #000000;
+  }
+
+  .desktop .body .bio {
+    color: #999999;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) and (pointer: fine) {
+  .desktop .mask,
+  .desktop .body {
+    font-size: clamp(22px, 3.5vw, 48px);
+  }
+}
