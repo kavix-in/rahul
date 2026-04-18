@@ -62,7 +62,7 @@ export default function CareersPage() {
           Send a short note about your product, timeline, and what “done” looks like. You will get a
           human response—usually within a few business days.
         </p>
-        <Link href="/#contact" className={styles.ctaLink}>
+        <Link href="/contact" className={styles.ctaLink}>
           Open contact
         </Link>
       </section>

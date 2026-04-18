@@ -1,17 +1,29 @@
 import { SITE, absoluteUrl } from '../config/site';
+import { getProfileUrlsForJsonLd } from '../config/seoProfiles';
 
 /**
  * Person + WebSite JSON-LD for Google rich results (server-rendered).
+ * @see https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data
  */
 export default function SeoJsonLd() {
+  const origin = absoluteUrl('/');
+  const personId = `${origin}#person`;
+  const websiteId = `${origin}#website`;
+
+  const sameAs = getProfileUrlsForJsonLd();
+
   const person = {
-    '@context': 'https://schema.org',
     '@type': 'Person',
+    '@id': personId,
     name: SITE.author,
-    url: absoluteUrl('/'),
-    image: absoluteUrl('/image.png'),
+    url: origin,
+    image: {
+      '@type': 'ImageObject',
+      url: absoluteUrl('/image.png'),
+    },
     jobTitle: 'Freelance Full-Stack Web Developer',
     description: SITE.description,
+    sameAs: sameAs.length ? sameAs : undefined,
     knowsAbout: [
       'Web development',
       'Next.js',
@@ -25,19 +37,23 @@ export default function SeoJsonLd() {
   };
 
   const website = {
-    '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': websiteId,
     name: SITE.siteName,
-    url: absoluteUrl('/'),
+    url: origin,
     description: SITE.description,
-    author: {
-      '@type': 'Person',
-      name: SITE.author,
-    },
-    inLanguage: 'en',
+    inLanguage: 'en-IN',
+    publisher: { '@id': personId },
+    author: { '@id': personId },
   };
 
-  const json = JSON.stringify([person, website]);
+  const personNode = { ...person };
+  if (personNode.sameAs === undefined) delete personNode.sameAs;
+
+  const json = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@graph': [personNode, website],
+  });
 
   return (
     <script

@@ -80,6 +80,7 @@ function parseSortDate(dateStr) {
 }
 
 const rawProjects = [
+  { name: 'kavix', link: 'kavix.in', date: '4/18/26', thumb: 'kavix.avif' },
   { name: 'liza-pavlakos', link: 'www.lizapavlakos.com', date: '7/11/24', thumb: 'Norliza.avif' },
   { name: 'mind-step', link: 'www.mindstepleadership.com', date: 'Jan 29', thumb: 'MindStep-Leadership.avif' },
   { name: 'small-screen', link: 'www.smallscreenmarketing.com', date: '12/15/25', thumb: 'smallscreenmarketing.avif' },
@@ -114,12 +115,25 @@ export const projects = sortedRaw.map((p, i) => ({
 
 /** Curated list for the SlidingImages section only (order preserved) */
 const SLIDING_IMAGES_SLUGS = [
+  'kavix',
   'speakers-solutions',
   'sunnystate',
   'ekaa',
   'spadtek',
 ];
 
-export const slidingImagesProjects = SLIDING_IMAGES_SLUGS.map((slug) =>
-  projects.find((p) => p.slug === slug)
-).filter(Boolean);
+/** Handwritten title colors on SlidingImages cards only */
+const SLIDING_TITLE_COLORS = {
+  kavix: 'red',
+  'speakers-solutions': '#326FDF',
+  sunnystate: '#ffffff',
+  ekaa: '#9c9f9f',
+  spadtek: '#326FDF',
+};
+
+export const slidingImagesProjects = SLIDING_IMAGES_SLUGS.map((slug) => {
+  const p = projects.find((proj) => proj.slug === slug);
+  if (!p) return null;
+  const titleColor = SLIDING_TITLE_COLORS[slug];
+  return titleColor != null ? { ...p, titleColor } : p;
+}).filter(Boolean);

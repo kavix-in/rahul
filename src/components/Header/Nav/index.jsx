@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import styles from './style.module.scss';
 import { motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
@@ -7,25 +8,29 @@ import { socialLinks } from '@/config/social';
 import { perspective, slideIn } from "./anim";
 import { SocialIcon } from './socialIcons';
 
-const HOME_SECTION_IDS = new Set(['projects', 'contact']);
+const HOME_SECTION_IDS = new Set(['projects']);
 
-function onPrimaryLinkClick(e, href, pathname, onClose) {
+function isHomeHashHref(href) {
+  return /^\/#[\w-]+$/.test(href);
+}
+
+function onHomeHashClick(e, href, pathname, onClose) {
   const m = href.match(/^\/#([\w-]+)$/);
-  if (m && HOME_SECTION_IDS.has(m[1])) {
-    const sectionId = m[1];
-    e.preventDefault();
+  if (!m || !HOME_SECTION_IDS.has(m[1])) {
     onClose?.();
-    if (pathname === '/') {
-      requestAnimationFrame(() => {
-        document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
-        window.history.replaceState(null, '', `/#${sectionId}`);
-      });
-    } else {
-      window.location.href = `/#${sectionId}`;
-    }
     return;
   }
+  const sectionId = m[1];
+  e.preventDefault();
   onClose?.();
+  if (pathname === '/') {
+    requestAnimationFrame(() => {
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+      window.history.replaceState(null, '', `/#${sectionId}`);
+    });
+  } else {
+    window.location.href = href;
+  }
 }
 
 export default function Nav({ onClose }) {
@@ -46,12 +51,18 @@ export default function Nav({ onClose }) {
                           animate="enter"
                           exit="exit"
                         >
-                            <a
-                              href={href}
-                              onClick={(e) => onPrimaryLinkClick(e, href, pathname, onClose)}
-                            >
+                            {isHomeHashHref(href) ? (
+                              <a
+                                href={href}
+                                onClick={(e) => onHomeHashClick(e, href, pathname, onClose)}
+                              >
                                 {title}
-                            </a>
+                              </a>
+                            ) : (
+                              <Link href={href} onClick={() => onClose?.()}>
+                                {title}
+                              </Link>
+                            )}
                         </motion.div>
                     </div>
                 )

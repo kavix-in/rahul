@@ -2,7 +2,10 @@
  * Resolves the public site origin. Without NEXT_PUBLIC_SITE_URL, local dev uses
  * http://localhost:3000 so metadata (favicons, OG images) resolve to your dev server
  * instead of a production domain (which caused stale/wrong favicons in the tab).
- * Set NEXT_PUBLIC_SITE_URL on Vercel/hosting to your real domain.
+ *
+ * Production: set NEXT_PUBLIC_SITE_URL=https://www.rahul.studio (no trailing slash).
+ * In Vercel → Project → Environment Variables. Prefer www consistently; redirect
+ * apex → www in your host/DNS to avoid duplicate URLs in search indexes.
  */
 function resolveSiteUrl() {
   const fromEnv = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '')
@@ -17,7 +20,7 @@ export function getMetadataBase() {
 }
 
 /**
- * Site & SEO — set NEXT_PUBLIC_SITE_URL in production (e.g. https://rahulraj.dev).
+ * Site & SEO — set NEXT_PUBLIC_SITE_URL in production (https://www.rahul.studio).
  */
 export const SITE = {
   /** Public site URL, no trailing slash */
@@ -33,22 +36,24 @@ export const SITE = {
   title:
     'Rahul Raj | Freelance Full-Stack Developer — Next.js, React & Interactive Web',
 
-  /** Meta description (~150–160 chars ideal for Google) */
+  /** Meta description (~150–160 chars ideal for Google SERP snippets) */
   description:
-    'Rahul Raj is a freelance full-stack web developer specializing in Next.js, React, Three.js, and WebGL. Hire for freelance front-end, UI engineering, and immersive web experiences worldwide.',
+    'Hire Rahul Raj — freelance full-stack & front-end developer (Next.js, React, Three.js, WebGL). Building fast, accessible web apps and immersive UI. Remote worldwide; based in India.',
 
-  /** Comma-separated keywords are outdated; Next passes an array */
+  /** Topics and queries you want to be associated with (use naturally in on-page copy too) */
   keywords: [
     'Rahul Raj',
-    'Rahul Raj freelance developer',
-    'freelance web developer',
+    'Rahul Raj developer',
+    'rahul.studio',
+    'freelance web developer India',
     'freelance full-stack developer',
     'Next.js developer',
-    'React developer freelance',
-    'front-end developer India',
+    'React freelance developer',
+    'Three.js developer',
     'WebGL developer',
-    'Three.js',
+    'front-end engineer',
     'hire freelance developer',
+    'remote web developer',
     'portfolio',
   ],
 

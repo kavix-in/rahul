@@ -8,11 +8,19 @@ import Image from 'next/image';
 import Rounded from '../../common/RoundedButton';
 import { projects as projectData } from '../../data';
 
+/** Shown only in this section (not in data.js / SlidingImages). */
+const CYBRAINER_PROJECT = {
+  slug: 'cybrainer',
+  title: 'Cybrainer',
+  link: 'https://www.cybrainer.com/',
+  src: '/projects/cybrainer.png',
+};
+
 const INITIAL_VISIBLE = 5;
 
 const palette = ['#000000', '#141414', '#1a1a1a', '#242424', '#111111', '#161616', '#1c1c1c', '#212121'];
 
-const projects = projectData.map((p, i) => ({
+const projects = [CYBRAINER_PROJECT, ...projectData].map((p, i) => ({
   slug: p.slug,
   title: p.title,
   link: p.link,

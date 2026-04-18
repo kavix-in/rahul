@@ -1,4 +1,5 @@
 import './globals.css'
+import { Analytics } from '@vercel/analytics/next'
 import { Inter, Unbounded, JetBrains_Mono } from 'next/font/google'
 import Header from '../components/Header';
 import Cursor from '../common/Cursor';
@@ -19,8 +20,11 @@ const jetbrainsMono = JetBrains_Mono({
   weight: '400',
 })
 
+const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+
 export const metadata = {
   metadataBase: getMetadataBase(),
+  applicationName: SITE.siteName,
   title: {
     default: SITE.title,
     template: `%s · ${SITE.author}`,
@@ -30,6 +34,13 @@ export const metadata = {
   authors: [{ name: SITE.author, url: SITE.url }],
   creator: SITE.author,
   publisher: SITE.author,
+  ...(googleVerification
+    ? {
+        verification: {
+          google: googleVerification,
+        },
+      }
+    : {}),
   robots: {
     index: true,
     follow: true,
@@ -81,7 +92,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en-IN">
       <body
         className={`${inter.className} ${inter.variable} ${unbounded.variable} ${jetbrainsMono.variable}`}
       >
@@ -89,6 +100,7 @@ export default function RootLayout({ children }) {
         <Cursor />
         <Header />
         {children}
+        <Analytics />
       </body>
     </html>
   )

@@ -22,10 +22,10 @@ function useIsMobileCard() {
   );
 }
 
-/* Matches SlidingImages order: speakers-solutions, sunnystate, ekaa, spadtek */
+/* Matches SlidingImages order: kavix, speakers-solutions, sunnystate, ekaa, spadtek */
 const SIGNATURE_VARIANTS = ['sig0', 'sig1', 'sig2', 'sig3'];
 
-const Card = ({ i, title, src, color, link, progress, range, targetScale }) => {
+const Card = ({ i, title, src, color, link, progress, range, targetScale, titleColor }) => {
   const container = useRef(null);
   const isMobile = useIsMobileCard();
 
@@ -65,6 +65,7 @@ const Card = ({ i, title, src, color, link, progress, range, targetScale }) => {
             <div className={styles.imageGradient} aria-hidden />
             <p
               className={`${styles.signatureTitle} ${styles[SIGNATURE_VARIANTS[i % SIGNATURE_VARIANTS.length]]} ${signatureFontClasses[i % signatureFontClasses.length]}`}
+              style={titleColor ? { color: titleColor } : undefined}
             >
               {title}
             </p>
