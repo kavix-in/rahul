@@ -18,7 +18,7 @@ export const socialLinks = [
   {
     id: 'github',
     title: 'GitHub',
-    href: 'https://github.com/Rahul3090500',
+    href: 'https://github.com/kavix-in',
   },
   {
     id: 'email',
