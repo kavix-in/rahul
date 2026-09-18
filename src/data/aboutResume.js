@@ -75,7 +75,7 @@ export const aboutResume = {
       title: 'Sr. Full-Stack Developer & Internship Manager',
       company: 'Larklabs.ai',
       location: 'Hybrid',
-      start: '2026-01',
+      start: '2025-10',
       end: null,
       bullets: [
         'Leading cross-platform mobile development with React Native, shipping production apps for both iOS and Android.',
@@ -92,8 +92,8 @@ export const aboutResume = {
       title: 'Software Developer (Python & MERN Stack)',
       company: 'Pioneersoft',
       location: 'Riyadh, Saudi Arabia',
-      start: '2024-11',
-      end: '2025-12',
+      start: '2024-08',
+      end: '2025-09',
       bullets: [
         'Engineered backend logic with Python and Node.js for international enterprise applications.',
         'Integrated Python data pipelines with React frontends for dynamic real-time reporting.',
@@ -107,7 +107,7 @@ export const aboutResume = {
       company: 'Kurage',
       location: 'Bangalore, India',
       start: '2021-06',
-      end: '2024-10',
+      end: '2024-07',
       bullets: [
         'Designed and maintained complex backends with Python (Django / Flask) over three years.',
         'Built cross-platform mobile features with React Native alongside the web product.',
