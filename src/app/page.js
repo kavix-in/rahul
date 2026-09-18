@@ -1,7 +1,9 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './page.module.scss';
 import { getResume } from '@/data/aboutResume';
 import { projects } from '@/data';
+import { caseStudies } from '@/data/caseStudies';
 import { socialLinks } from '@/config/social';
 
 // Regenerate the static page periodically so live-computed experience
@@ -191,33 +193,56 @@ export default function Home() {
           title="Selected Work"
           note="Live client & product sites"
         />
+        <p className={styles.swipeHint}>Swipe to explore →</p>
         <div className={styles.projectGrid}>
-          {projects.map((p) => (
-            <a
-              key={p.slug}
-              href={p.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.projectCard}
-            >
-              <div className={styles.projectThumb}>
-                <Image
-                  src={p.src}
-                  alt={p.title}
-                  fill
-                  sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 380px"
-                  className={styles.projectImg}
-                />
-              </div>
-              <div className={styles.projectInfo}>
-                <h3>{p.title}</h3>
-                <span className={styles.projectArrow} aria-hidden>
-                  ↗
-                </span>
-              </div>
-              <p className={styles.projectDesc}>{p.description}</p>
-            </a>
-          ))}
+          {projects.map((p) => {
+            const hasCase = Boolean(caseStudies[p.slug]);
+            const cardInner = (
+              <>
+                <div className={styles.projectThumb}>
+                  <Image
+                    src={p.src}
+                    alt={p.title}
+                    fill
+                    sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 380px"
+                    className={styles.projectImg}
+                  />
+                  {hasCase && (
+                    <span className={styles.caseBadge}>Case study</span>
+                  )}
+                </div>
+                <div className={styles.projectInfo}>
+                  <h3>{p.title}</h3>
+                  <span className={styles.projectArrow} aria-hidden>
+                    {hasCase ? '→' : '↗'}
+                  </span>
+                </div>
+                <p className={styles.projectDesc}>
+                  {hasCase ? caseStudies[p.slug].summary : p.description}
+                </p>
+              </>
+            );
+
+            return hasCase ? (
+              <Link
+                key={p.slug}
+                href={`/work/${p.slug}`}
+                className={styles.projectCard}
+              >
+                {cardInner}
+              </Link>
+            ) : (
+              <a
+                key={p.slug}
+                href={p.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.projectCard}
+              >
+                {cardInner}
+              </a>
+            );
+          })}
         </div>
       </section>
 
