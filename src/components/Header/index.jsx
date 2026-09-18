@@ -41,6 +41,17 @@ export default function Header() {
         </nav>
 
         <div className={styles.actions}>
+          <button
+            type="button"
+            className={styles.cmdkBtn}
+            onClick={() =>
+              window.dispatchEvent(new Event('command-palette:toggle'))
+            }
+            aria-label="Open command palette"
+          >
+            <span className={styles.cmdkKeys}>⌘K</span>
+            <span className={styles.cmdkText}>Search</span>
+          </button>
           <a
             className={styles.resumeBtn}
             href={R.resumePdf}

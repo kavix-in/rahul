@@ -74,6 +74,30 @@
   gap: 14px;
 }
 
+.cmdkBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  background: transparent;
+  padding: 8px 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--hairline-strong);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.cmdkBtn:hover {
+  color: var(--white);
+  border-color: var(--white);
+}
+.cmdkKeys {
+  font-weight: 600;
+  color: var(--text);
+}
+
 .resumeBtn {
   font-family: var(--font-mono);
   font-size: 12px;
@@ -157,6 +181,9 @@
 
 @media (max-width: 820px) {
   .nav {
+    display: none;
+  }
+  .cmdkBtn {
     display: none;
   }
   .menuToggle {
