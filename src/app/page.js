@@ -30,7 +30,7 @@ export default function Home() {
 
           <div className={styles.ctaRow}>
             <a className={styles.primaryBtn} href={R.resumePdf} download>
-              Download Résumé (PDF)
+              Résumé
             </a>
             <a className={styles.secondaryBtn} href="#work">
               View Work
@@ -251,7 +251,7 @@ export default function Home() {
             {R.email}
           </a>
           <a className={styles.secondaryBtn} href={R.resumePdf} download>
-            Download Résumé
+            Résumé
           </a>
         </div>
         <div className={styles.socialRow}>

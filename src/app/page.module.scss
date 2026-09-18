@@ -165,11 +165,17 @@
   width: 100%;
 }
 
+/* Hero text column — min-width:0 prevents CSS-grid blowout / h-overflow */
+.heroText {
+  min-width: 0;
+}
+
 /* Hero photo + stats */
 .heroPhoto {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  min-width: 0;
 }
 
 .photoFrame {
@@ -598,7 +604,8 @@
 @media (max-width: 900px) {
   .hero {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 28px;
+    padding-top: 100px;
   }
   .heroPhoto {
     order: -1;
@@ -639,14 +646,61 @@
   .projectGrid {
     grid-template-columns: 1fr;
   }
-  .heroPhoto {
-    flex-direction: column;
-  }
-  .photoFrame {
-    width: 100%;
-    aspect-ratio: 4 / 5;
-  }
   .sectionNote {
     display: none;
+  }
+
+  /* Compact hero so name, role, summary & CTAs fit the first screen */
+  .hero {
+    padding-top: 84px;
+    gap: 20px;
+  }
+  .heroPhoto {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .photoFrame {
+    width: 116px;
+    flex: none;
+    aspect-ratio: 3 / 4;
+  }
+  .statBox dt {
+    font-size: 22px;
+  }
+  .statBox div {
+    padding: 10px 8px;
+  }
+  .status {
+    margin-bottom: 12px;
+  }
+  .name {
+    margin-bottom: 6px;
+  }
+  .role {
+    margin-bottom: 4px;
+  }
+  .tagline {
+    margin-bottom: 14px;
+  }
+  .heroSummary {
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+  .ctaRow {
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .primaryBtn,
+  .secondaryBtn {
+    flex: 1;
+    text-align: center;
+    padding: 13px 14px;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .metaList {
+    margin-bottom: 14px;
   }
 }
