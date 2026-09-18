@@ -98,6 +98,7 @@ const rawProjects = [
   { name: 'uptik-fe', link: 'www.uptiksolution.com', date: '5/29/25', thumb: 'upteck.avif' },
   { name: 'join-with-me', link: 'www.joinwithme.in', date: 'Apr 17', thumb: 'joinwithme.avif' },
   { name: 'zunevo', link: 'www.zunevo.shop', date: 'Sep 8', thumb: 'zunevo.avif' },
+  { name: 'cybrainer', link: 'www.cybrainer.com', date: 'Sep 12', thumb: 'cybrainer.avif' },
 ];
 
 const sortedRaw = [...rawProjects].sort(
