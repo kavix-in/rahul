@@ -98,6 +98,8 @@ const rawProjects = [
   { name: 'agrim', link: 'demo-agrim.kurage.in', date: '4/11/25', thumb: 'agrim.avif' },
   { name: 'uptik-fe', link: 'www.uptiksolution.com', date: '5/29/25', thumb: 'upteck.avif' },
   { name: 'join-with-me', link: 'www.joinwithme.in', date: 'Apr 17', thumb: 'joinwithme.avif' },
+  { name: 'zunevo', link: 'zunevo.vercel.app', date: 'Sep 8', thumb: 'zunevo.avif' },
+  { name: 'shanti-herbal', link: 'shantiherbalhealthcare.vercel.app', date: 'Feb 21', thumb: 'shanti.avif' },
 ];
 
 const sortedRaw = [...rawProjects].sort(
@@ -107,33 +109,8 @@ const sortedRaw = [...rawProjects].sort(
 export const projects = sortedRaw.map((p, i) => ({
   slug: p.name,
   title: formatTitle(p.name),
-  description: `Last updated · ${p.date}`,
+  description: `Updated · ${p.date}`,
   src: `/projects/${p.thumb}`,
   link: normalizeLink(p.link),
   color: palette[i % palette.length],
 }));
-
-/** Curated list for the SlidingImages section only (order preserved) */
-const SLIDING_IMAGES_SLUGS = [
-  'kavix',
-  'speakers-solutions',
-  'sunnystate',
-  'ekaa',
-  'spadtek',
-];
-
-/** Handwritten title colors on SlidingImages cards only */
-const SLIDING_TITLE_COLORS = {
-  kavix: 'red',
-  'speakers-solutions': '#326FDF',
-  sunnystate: '#ffffff',
-  ekaa: '#9c9f9f',
-  spadtek: '#326FDF',
-};
-
-export const slidingImagesProjects = SLIDING_IMAGES_SLUGS.map((slug) => {
-  const p = projects.find((proj) => proj.slug === slug);
-  if (!p) return null;
-  const titleColor = SLIDING_TITLE_COLORS[slug];
-  return titleColor != null ? { ...p, titleColor } : p;
-}).filter(Boolean);

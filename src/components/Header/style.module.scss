@@ -1,53 +1,177 @@
-.header{
-    position: fixed;
-    right: 50px;
-    top: 50px;
-    z-index: 10;
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    backdrop-filter 0.3s ease;
+  border-bottom: 1px solid transparent;
+}
 
-    &.mobile {
-        right: max(16px, env(safe-area-inset-right));
-        top: max(16px, env(safe-area-inset-top));
-    }
+.header.scrolled {
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--hairline);
+}
 
-    &.active{
-        z-index: 1000;
-    }
+.inner {
+  max-width: var(--container-wide);
+  margin: 0 auto;
+  padding: 14px clamp(16px, 4vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
 
-    /* Full-viewport hit area when menu is open on small screens */
-    &.mobile.active {
-        inset: 0;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
-        max-height: 100dvh;
-    }
-    
-    .menu{
-        width: 480px;
-        height: 650px;
-        background-color: #EA580C;
-        border: 1px solid #999999;
-        border-radius: 6px;
-        position: relative;
-        overflow-x: visible;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        box-sizing: border-box;
-    }
+.brand {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
 
-    &.mobile .menu {
-        max-width: 100%;
-    }
+.brandName {
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: var(--white);
+  letter-spacing: 0.01em;
+}
 
-    /* Menu panel first, Menu/Close control on top */
-    &.mobile.active > div:first-of-type {
-        z-index: 1;
-    }
+.brandRole {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 2px;
+}
 
-    &.mobile.active > div:last-of-type {
-        z-index: 3;
-    }
+.nav {
+  display: flex;
+  gap: 28px;
+  margin-left: auto;
+  margin-right: 8px;
+}
+
+.navLink {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.navLink:hover {
+  color: var(--white);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.resumeBtn {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--black);
+  background: var(--white);
+  padding: 10px 18px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--white);
+  transition: background 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+
+.resumeBtn:hover {
+  background: transparent;
+  color: var(--white);
+}
+
+.menuToggle {
+  display: none;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0;
+
+  span {
+    display: block;
+    width: 16px;
+    height: 1.5px;
+    background: var(--white);
+    transition: transform 0.25s ease, opacity 0.2s ease;
+  }
+}
+
+.barOpen1 {
+  transform: translateY(3.25px) rotate(45deg);
+}
+.barOpen2 {
+  transform: translateY(-3.25px) rotate(-45deg);
+}
+
+.mobileMenu {
+  display: none;
+  flex-direction: column;
+  padding: 8px clamp(16px, 4vw, 40px) 24px;
+  background: rgba(0, 0, 0, 0.95);
+  border-bottom: 1px solid var(--hairline);
+  backdrop-filter: blur(12px);
+}
+
+.mobileLink {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text);
+  padding: 14px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.mobileResume {
+  margin-top: 18px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--black);
+  background: var(--white);
+  padding: 14px;
+  border-radius: var(--radius-pill);
+}
+
+@media (max-width: 820px) {
+  .nav {
+    display: none;
+  }
+  .menuToggle {
+    display: flex;
+  }
+  .mobileMenu {
+    display: flex;
+  }
+}
+
+@media (max-width: 460px) {
+  .resumeBtn {
+    display: none;
+  }
+  .brandRole {
+    display: none;
+  }
 }

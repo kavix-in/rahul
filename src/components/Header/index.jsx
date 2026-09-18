@@ -1,110 +1,81 @@
 'use client';
-import { useState, useEffect, useRef, useMemo } from 'react'
-import { AnimatePresence, motion } from 'framer-motion';
-import Button from './Button';
+
+import { useEffect, useState } from 'react';
+import { aboutResume as R } from '@/data/aboutResume';
 import styles from './style.module.scss';
-import Nav from './Nav';
 
-const MOBILE_MAX = 768;
-const transition = { duration: 0.75, type: "tween", ease: [0.76, 0, 0.24, 1] };
-const transitionClosed = { duration: 0.75, delay: 0.35, type: "tween", ease: [0.76, 0, 0.24, 1] };
+const NAV = [
+  { label: 'Summary', href: '#summary' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Work', href: '#work' },
+  { label: 'Contact', href: '#contact' },
+];
 
-function useIsMobile() {
-    const [isMobile, setIsMobile] = useState(false);
-    useEffect(() => {
-        const q = () => setIsMobile(window.innerWidth <= MOBILE_MAX);
-        q();
-        window.addEventListener('resize', q);
-        return () => window.removeEventListener('resize', q);
-    }, []);
-    return isMobile;
-}
+export default function Header() {
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
 
-export default function Index() {
-    const [isActive, setIsActive] = useState(false);
-    const menuRef = useRef(null);
-    const isMobile = useIsMobile();
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-    const menu = useMemo(() => ({
-        open: isMobile
-            ? {
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                borderRadius: 0,
-                transition,
-            }
-            : {
-                position: 'relative',
-                width: '480px',
-                height: '650px',
-                top: '-25px',
-                right: '-25px',
-                left: 'auto',
-                borderRadius: '6px',
-                transition,
-            },
-        closed: {
-            position: 'relative',
-            width: '100px',
-            height: '40px',
-            top: '0px',
-            right: '0px',
-            left: 'auto',
-            borderRadius: '9999px',
-            transition: transitionClosed,
-        },
-    }), [isMobile]);
+  return (
+    <header className={`${styles.header} ${scrolled ? styles.scrolled : ''} no-print`}>
+      <div className={styles.inner}>
+        <a href="#top" className={styles.brand} onClick={() => setOpen(false)}>
+          <span className={styles.brandName}>{R.name}</span>
+          <span className={styles.brandRole}>{R.role}</span>
+        </a>
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (isActive && menuRef.current && !menuRef.current.contains(event.target)) {
-                setIsActive(false);
-            }
-        };
+        <nav className={styles.nav} aria-label="Primary">
+          {NAV.map((item) => (
+            <a key={item.href} href={item.href} className={styles.navLink}>
+              {item.label}
+            </a>
+          ))}
+        </nav>
 
-        if (isActive) {
-            document.addEventListener('mousedown', handleClickOutside);
-        }
-
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [isActive]);
-
-    useEffect(() => {
-        if (!isActive || !isMobile) return;
-        const prev = document.body.style.overflow;
-        document.body.style.overflow = 'hidden';
-        return () => {
-            document.body.style.overflow = prev;
-        };
-    }, [isActive, isMobile]);
-
-    const handleMenuClick = (e) => {
-        e.stopPropagation();
-    };
-
-    return (
-        <div className={`${styles.header} ${isActive ? styles.active : ''} ${isMobile ? styles.mobile : ''}`} ref={menuRef}>
-            <motion.div 
-                className={styles.menu}
-                variants={menu}
-                animate={isActive ? "open" : "closed"}
-                initial="closed"
-                onClick={handleMenuClick}
-            >
-                <AnimatePresence>
-                    {isActive && <Nav onClose={() => setIsActive(false)} />}
-                </AnimatePresence>
-            </motion.div>
-            <Button
-                isActive={isActive}
-                toggleMenu={() => { setIsActive(!isActive) }}
-                matchMenuInset={isActive && isMobile}
-            />
+        <div className={styles.actions}>
+          <a
+            className={styles.resumeBtn}
+            href={R.resumePdf}
+            download
+          >
+            Download CV
+          </a>
+          <button
+            className={styles.menuToggle}
+            aria-expanded={open}
+            aria-label="Toggle menu"
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span className={open ? styles.barOpen1 : ''} />
+            <span className={open ? styles.barOpen2 : ''} />
+          </button>
         </div>
-    )
+      </div>
+
+      {open && (
+        <div className={styles.mobileMenu}>
+          {NAV.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className={styles.mobileLink}
+              onClick={() => setOpen(false)}
+            >
+              {item.label}
+            </a>
+          ))}
+          <a className={styles.mobileResume} href={R.resumePdf} download>
+            Download CV
+          </a>
+        </div>
+      )}
+    </header>
+  );
 }

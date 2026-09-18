@@ -34,26 +34,28 @@ export const SITE = {
 
   /** Default title (browser tab + search) */
   title:
-    'Rahul Raj | Freelance Full-Stack Developer — Next.js, React & Interactive Web',
+    'Rahul Raj | Python & Full-Stack Developer — Django, FastAPI & MERN',
 
   /** Meta description (~150–160 chars ideal for Google SERP snippets) */
   description:
-    'Hire Rahul Raj — freelance full-stack & front-end developer (Next.js, React, Three.js, WebGL). Building fast, accessible web apps and immersive UI. Remote worldwide; based in India.',
+    'Rahul Raj — Python & full-stack developer with 4+ years building scalable backends (Django, Flask, FastAPI) and MERN web apps. Download résumé, view work. Based in Bangalore, India.',
 
   /** Topics and queries you want to be associated with (use naturally in on-page copy too) */
   keywords: [
     'Rahul Raj',
     'Rahul Raj developer',
-    'rahul.studio',
-    'freelance web developer India',
-    'freelance full-stack developer',
-    'Next.js developer',
-    'React freelance developer',
-    'Three.js developer',
-    'WebGL developer',
-    'front-end engineer',
-    'hire freelance developer',
-    'remote web developer',
+    'Python developer',
+    'Python backend developer',
+    'Django developer',
+    'FastAPI developer',
+    'Flask developer',
+    'MERN stack developer',
+    'full-stack developer India',
+    'React Native developer',
+    'Node.js developer',
+    'hire Python developer',
+    'software developer Bangalore',
+    'resume',
     'portfolio',
   ],
 

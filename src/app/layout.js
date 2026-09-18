@@ -2,7 +2,6 @@ import './globals.css'
 import { Analytics } from '@vercel/analytics/next'
 import { Inter, Unbounded, JetBrains_Mono } from 'next/font/google'
 import Header from '../components/Header';
-import Cursor from '../common/Cursor';
 import SeoJsonLd from '../components/SeoJsonLd';
 import { SITE, absoluteUrl, getMetadataBase } from '../config/site';
 
@@ -87,7 +86,7 @@ export const metadata = {
     shortcut: '/image.png',
     apple: [{ url: '/image.png', sizes: '1024x1024', type: 'image/png' }],
   },
-  themeColor: '#EA580C',
+  themeColor: '#000000',
 }
 
 export default function RootLayout({ children }) {
@@ -97,7 +96,6 @@ export default function RootLayout({ children }) {
         className={`${inter.className} ${inter.variable} ${unbounded.variable} ${jetbrainsMono.variable}`}
       >
         <SeoJsonLd />
-        <Cursor />
         <Header />
         {children}
         <Analytics />

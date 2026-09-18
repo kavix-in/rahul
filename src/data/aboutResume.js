@@ -4,10 +4,16 @@
 
 export const aboutResume = {
   name: 'Rahul Raj',
-  location: 'Bangalore, BLR',
+  role: 'Python & Full-Stack Developer',
+  tagline: 'Python (Django · Flask · FastAPI) + MERN · React Native',
+  yearsExperience: '4+',
+  available: true,
+  location: 'Bangalore, India',
   phone: '8271308890',
   phoneE164: '+918271308890',
   email: 'raj3090500@gmail.com',
+  resumePdf: '/Rahul-Raj-Resume.pdf',
+  photo: '/images/rahul.jpeg',
 
   summary:
     'Python developer with 4+ years of experience in scalable backend systems and web applications. Strong in Python (Django, Flask, FastAPI) and the MERN stack, with React Native for mobile — focused on performance, reliability, and clean architecture.',
