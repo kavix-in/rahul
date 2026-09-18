@@ -1,10 +1,15 @@
 import Image from 'next/image';
 import styles from './page.module.scss';
-import { aboutResume as R } from '@/data/aboutResume';
+import { getResume } from '@/data/aboutResume';
 import { projects } from '@/data';
 import { socialLinks } from '@/config/social';
 
+// Regenerate the static page periodically so live-computed experience
+// durations (and the years-of-experience stat) stay up to date in production.
+export const revalidate = 3600;
+
 export default function Home() {
+  const R = getResume();
   const socials = socialLinks.filter((s) =>
     ['github', 'linkedin', 'email', 'whatsapp'].includes(s.id)
   );
@@ -109,6 +114,10 @@ export default function Home() {
             <article key={`${job.company}-${job.period}`} className={styles.job}>
               <div className={styles.jobMeta}>
                 <p className={styles.jobPeriod}>{job.period}</p>
+                <p className={styles.jobDuration}>
+                  {job.duration}
+                  {job.ongoing ? ' · ongoing' : ''}
+                </p>
                 <p className={styles.jobLocation}>{job.location}</p>
               </div>
               <div className={styles.jobBody}>
@@ -143,10 +152,26 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ---------------- ENTERPRISE CLIENTS ---------------- */}
+      <section className={styles.section} id="clients">
+        <SectionHead
+          index="04"
+          title="Enterprise Clients"
+          note="Engineering work support"
+        />
+        <div className={styles.clientGrid}>
+          {R.enterpriseClients.map((client) => (
+            <div key={client} className={styles.clientChip}>
+              {client}
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ---------------- WORK / PROJECTS ---------------- */}
       <section className={styles.section} id="work">
         <SectionHead
-          index="04"
+          index="05"
           title="Selected Work"
           note="Live client & product sites"
         />
@@ -182,7 +207,7 @@ export default function Home() {
 
       {/* ---------------- EDUCATION + ACADEMIC ---------------- */}
       <section className={styles.section} id="education">
-        <SectionHead index="05" title="Education" />
+        <SectionHead index="06" title="Education" />
         <div className={styles.eduGrid}>
           {R.education.map((ed) => (
             <div key={ed.school} className={styles.eduCard}>

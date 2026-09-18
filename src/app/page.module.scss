@@ -409,6 +409,28 @@
   }
 }
 
+/* Enterprise clients */
+.clientGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.clientChip {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-pill);
+  padding: 14px 28px;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  transition: border-color 0.25s ease, color 0.25s ease;
+
+  &:hover {
+    border-color: var(--hairline-strong);
+  }
+}
+
 /* Projects */
 .projectGrid {
   display: grid;

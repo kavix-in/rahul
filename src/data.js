@@ -80,8 +80,7 @@ function parseSortDate(dateStr) {
 }
 
 const rawProjects = [
-  { name: 'kavix', link: 'kavix.in', date: '4/18/26', thumb: 'kavix.avif' },
-  { name: 'liza-pavlakos', link: 'www.lizapavlakos.com', date: '7/11/24', thumb: 'Norliza.avif' },
+  { name: 'liza-pavlakos', link: 'norliza.com', date: '7/11/24', thumb: 'Norliza.avif' },
   { name: 'mind-step', link: 'www.mindstepleadership.com', date: 'Jan 29', thumb: 'MindStep-Leadership.avif' },
   { name: 'small-screen', link: 'www.smallscreenmarketing.com', date: '12/15/25', thumb: 'smallscreenmarketing.avif' },
   { name: 'speakers-solutions', link: 'www.speakerssolutions.com.au', date: '2d ago', thumb: 'speakers_solutions.avif' },
@@ -98,8 +97,7 @@ const rawProjects = [
   { name: 'agrim', link: 'demo-agrim.kurage.in', date: '4/11/25', thumb: 'agrim.avif' },
   { name: 'uptik-fe', link: 'www.uptiksolution.com', date: '5/29/25', thumb: 'upteck.avif' },
   { name: 'join-with-me', link: 'www.joinwithme.in', date: 'Apr 17', thumb: 'joinwithme.avif' },
-  { name: 'zunevo', link: 'zunevo.vercel.app', date: 'Sep 8', thumb: 'zunevo.avif' },
-  { name: 'shanti-herbal', link: 'shantiherbalhealthcare.vercel.app', date: 'Feb 21', thumb: 'shanti.avif' },
+  { name: 'zunevo', link: 'www.zunevo.shop', date: 'Sep 8', thumb: 'zunevo.avif' },
 ];
 
 const sortedRaw = [...rawProjects].sort(

@@ -1,12 +1,47 @@
 /**
- * Resume content for /about — emphasis: Python backend + MERN full stack.
+ * Resume content — Python backend + MERN full stack + mobile (React Native).
+ *
+ * Experience durations are computed live from `start` / `end` dates:
+ *  - `end: null`  → ongoing ("Present"); the duration auto-increases over time.
+ *  - `end: 'YYYY-MM'` → locked to that month once you set it.
+ * Total years of experience is derived from the earliest start date to today.
+ * Call `getResume()` at render time so the numbers stay current (see page.js
+ * `revalidate`, which regenerates the static page periodically in production).
  */
+
+const MONTHS = [
+  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+];
+
+/** 'YYYY-MM' → 'Mon YYYY' */
+function formatMonth(ym) {
+  const [y, m] = ym.split('-').map(Number);
+  return `${MONTHS[m - 1]} ${y}`;
+}
+
+/** Whole months elapsed from a 'YYYY-MM' start up to (and including) an end date. */
+function monthsBetween(startYM, endDate) {
+  const [sy, sm] = startYM.split('-').map(Number);
+  const months =
+    (endDate.getFullYear() - sy) * 12 + (endDate.getMonth() + 1 - sm) + 1;
+  return Math.max(months, 1);
+}
+
+/** e.g. 14 → "1 yr 2 mos", 5 → "5 mos", 24 → "2 yrs" */
+function durationLabel(totalMonths) {
+  const years = Math.floor(totalMonths / 12);
+  const months = totalMonths % 12;
+  const parts = [];
+  if (years) parts.push(`${years} yr${years > 1 ? 's' : ''}`);
+  if (months) parts.push(`${months} mo${months > 1 ? 's' : ''}`);
+  return parts.join(' ') || '1 mo';
+}
 
 export const aboutResume = {
   name: 'Rahul Raj',
-  role: 'Python & Full-Stack Developer',
-  tagline: 'Python (Django · Flask · FastAPI) + MERN · React Native',
-  yearsExperience: '4+',
+  role: 'Sr. Full-Stack Developer & Internship Manager',
+  tagline: 'React Native (iOS & Android) · MERN · Python',
   available: true,
   location: 'Bangalore, India',
   phone: '8271308890',
@@ -16,32 +51,42 @@ export const aboutResume = {
   photo: '/images/rahul.jpeg',
 
   summary:
-    'Python developer with 4+ years of experience in scalable backend systems and web applications. Strong in Python (Django, Flask, FastAPI) and the MERN stack, with React Native for mobile — focused on performance, reliability, and clean architecture.',
+    'Sr. full-stack developer and internship manager with 4+ years of experience building scalable backend systems, web applications, and cross-platform mobile apps. Currently leading React Native (iOS & Android) development and mentoring interns, having grown from a MERN / full-stack developer role. Trusted to provide engineering work support for enterprise clients including Walmart, Apple, Oracle, and Samsung Knox. Strong in the MERN stack, React Native, and Python (Django, Flask, FastAPI) — focused on performance, reliability, and clean architecture.',
 
   focusAreas: [
     { label: 'Python', detail: 'Django · Flask · FastAPI' },
     { label: 'MERN', detail: 'MongoDB · Express · React · Node.js' },
+    { label: 'Mobile', detail: 'React Native · iOS & Android' },
   ],
 
+  // Enterprise clients supported through engineering work support.
+  enterpriseClients: ['Walmart', 'Apple', 'Oracle', 'Samsung Knox'],
+
+  // start / end use 'YYYY-MM'. end: null means "Present" (auto-increasing).
   experience: [
     {
-      title: 'Python Developer (MERN & React Native)',
+      title: 'Sr. Full-Stack Developer & Internship Manager',
       company: 'Larklabs.ai',
-      location: 'Remote',
-      period: 'Jan 2026 – Present',
+      location: 'Hybrid',
+      start: '2026-01',
+      end: null,
       bullets: [
-        'Spearheading Python-based backends for AI-driven features, improving response times by ~25%.',
+        'Leading cross-platform mobile development with React Native, shipping production apps for both iOS and Android.',
+        'Managing and mentoring the internship program — onboarding, guiding, and reviewing the work of intern developers.',
         'Architecting scalable REST APIs and microservices with Python and the MERN stack for real-time analytics dashboards.',
-        'Leading hybrid mobile development with React Native for consistent cross-platform UI/UX.',
-        'Implementing Python automation and CI/CD pipelines to streamline deployments.',
-        'Using Kafka streams for event-driven communication between core backend services.',
+        'Spearheading Python-based backends for AI-driven features, improving response times by ~25%.',
+        'Owning CI/CD pipelines and Kafka-based event-driven communication across core backend services.',
+        'Providing engineering work support for enterprise clients including Walmart, Apple, Oracle, and Samsung Knox.',
+        'Achieving 100% React test coverage using Jest and React Testing Library.',
+        'Progressed here from a MERN / full-stack developer role into senior mobile development and internship management.',
       ],
     },
     {
       title: 'Software Developer (Python & MERN Stack)',
       company: 'Pioneersoft',
       location: 'Riyadh, Saudi Arabia',
-      period: 'July 2025 – Dec 2025',
+      start: '2024-11',
+      end: '2025-12',
       bullets: [
         'Engineered backend logic with Python and Node.js for international enterprise applications.',
         'Integrated Python data pipelines with React frontends for dynamic real-time reporting.',
@@ -51,16 +96,17 @@ export const aboutResume = {
       ],
     },
     {
-      title: 'Python Developer',
+      title: 'Full-Stack Developer',
       company: 'Kurage',
       location: 'Bangalore, India',
-      period: 'June 2021 – June 2025',
+      start: '2021-06',
+      end: '2024-10',
       bullets: [
-        'Designed and maintained complex backends with Python (Django / Flask) over four years.',
+        'Designed and maintained complex backends with Python (Django / Flask) over three years.',
+        'Built cross-platform mobile features with React Native alongside the web product.',
         'Delivered a high-performance microservices architecture (~25% faster site loads).',
         'Automated internal workflows with Python, reducing operational overhead.',
         'Maintained unit and integration tests targeting 99.9% production reliability.',
-        'Contributed to a reusable UI component library integrated with Python APIs.',
         'Resolved 3+ critical production tickets daily with focus on backend stability.',
       ],
     },
@@ -83,12 +129,12 @@ export const aboutResume = {
 
   skills: {
     primary:
-      'Python (Django, Flask, FastAPI), MERN stack (MongoDB, Express, React, Node.js).',
+      'Python (Django, Flask, FastAPI), MERN stack (MongoDB, Express, React, Node.js), React Native for cross-platform mobile.',
     programming:
-      'Python, JavaScript (ES6+), Next.js, React, Java, C++, SQL, HTML5, CSS3 / SCSS.',
+      'Python, JavaScript (ES6+), Next.js, React, React Native, Three.js, Java, C++, SQL, HTML5, CSS3 / SCSS.',
     databases: 'PostgreSQL, MongoDB, MySQL, Redis.',
     tools:
-      'Git, Docker, Jenkins, CI/CD, React Native, Kafka, Figma, Agile/Scrum, PyTest.',
+      'Git, Docker, Jenkins, CI/CD, Expo, Kafka, Figma, Agile/Scrum, PyTest, Jest & React Testing Library (100% coverage), Claude / AI prompting, Presentation slides.',
   },
 
   projects: [
@@ -104,3 +150,35 @@ export const aboutResume = {
     },
   ],
 };
+
+/**
+ * Returns the resume with live-computed experience durations and total years.
+ * Call this at render time (not module load) so values reflect the current date.
+ */
+export function getResume(now = new Date()) {
+  const experience = aboutResume.experience.map((job) => {
+    const ongoing = !job.end;
+    const endDate = ongoing
+      ? now
+      : new Date(Number(job.end.split('-')[0]), Number(job.end.split('-')[1]) - 1, 1);
+    const months = monthsBetween(job.start, endDate);
+    return {
+      ...job,
+      period: `${formatMonth(job.start)} – ${ongoing ? 'Present' : formatMonth(job.end)}`,
+      duration: durationLabel(months),
+      ongoing,
+    };
+  });
+
+  // Total experience = span from the earliest start date to today.
+  const earliestStart = aboutResume.experience
+    .map((j) => j.start)
+    .sort()[0];
+  const totalYears = Math.floor(monthsBetween(earliestStart, now) / 12);
+
+  return {
+    ...aboutResume,
+    experience,
+    yearsExperience: `${totalYears}+`,
+  };
+}
