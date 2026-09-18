@@ -143,6 +143,7 @@ export default function Home() {
             { label: 'Programming', value: R.skills.programming },
             { label: 'Databases', value: R.skills.databases },
             { label: 'Tools & DevOps', value: R.skills.tools },
+            { label: 'CMS', value: R.skills.cms },
           ].map((s) => (
             <div key={s.label} className={styles.skillCard}>
               <h3>{s.label}</h3>

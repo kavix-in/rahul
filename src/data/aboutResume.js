@@ -142,6 +142,8 @@ export const aboutResume = {
     databases: 'PostgreSQL, MongoDB, MySQL, Redis.',
     tools:
       'Git, Docker, Jenkins, CI/CD, Expo, Kafka, Agile/Scrum, PyTest, Jest & React Testing Library (100% coverage), Claude / AI prompting, Presentation slides, Figma & Google Flow (basics).',
+    cms:
+      'Payload CMS — building fully editable, headless-CMS-backed sites so non-technical users can update content, images, and media without touching code.',
   },
 
   projects: [

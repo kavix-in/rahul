@@ -168,7 +168,8 @@ export default function ResumeDocument({ resume: R, projects = [] }) {
             ['Programming', R.skills.programming],
             ['Databases', R.skills.databases],
             ['Tools & DevOps', R.skills.tools],
-          ].map(([label, value]) => (
+            ['CMS', R.skills.cms],
+          ].filter(([, value]) => value).map(([label, value]) => (
             <View key={label} style={styles.skillRow}>
               <Text style={styles.skillLabel}>{label}</Text>
               <Text style={styles.skillValue}>{value}</Text>
