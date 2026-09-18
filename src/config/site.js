@@ -14,6 +14,7 @@ function resolveSiteUrl() {
   return 'http://localhost:3000'
 }
 
+
 /** Use for metadataBase — same rules as SITE.url */
 export function getMetadataBase() {
   return new URL(resolveSiteUrl())
