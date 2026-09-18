@@ -47,7 +47,7 @@ export const aboutResume = {
   phone: '8271308890',
   phoneE164: '+918271308890',
   email: 'raj3090500@gmail.com',
-  resumePdf: '/Rahul-Raj-Resume.pdf',
+  resumePdf: '/resume',
   photo: '/images/rahul.jpeg',
 
   summary:
