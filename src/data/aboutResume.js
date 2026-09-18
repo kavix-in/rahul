@@ -141,7 +141,7 @@ export const aboutResume = {
       'Python, JavaScript (ES6+), Next.js, React, React Native, Three.js, Java, C++, SQL, HTML5, CSS3 / SCSS.',
     databases: 'PostgreSQL, MongoDB, MySQL, Redis.',
     tools:
-      'Git, Docker, Jenkins, CI/CD, Expo, Kafka, Figma, Agile/Scrum, PyTest, Jest & React Testing Library (100% coverage), Claude / AI prompting, Presentation slides.',
+      'Git, Docker, Jenkins, CI/CD, Expo, Kafka, Agile/Scrum, PyTest, Jest & React Testing Library (100% coverage), Claude / AI prompting, Presentation slides, Figma & Google Flow (basics).',
   },
 
   projects: [
