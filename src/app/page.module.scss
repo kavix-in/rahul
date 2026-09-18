@@ -417,18 +417,31 @@
 }
 
 .clientChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
   border: 1px solid var(--hairline);
   border-radius: var(--radius-pill);
-  padding: 14px 28px;
+  padding: 12px 24px;
   font-family: var(--font-mono);
   font-size: 15px;
   letter-spacing: 0.04em;
   color: var(--text);
-  transition: border-color 0.25s ease, color 0.25s ease;
+  text-decoration: none;
+  transition: border-color 0.25s ease, transform 0.25s ease;
 
   &:hover {
     border-color: var(--hairline-strong);
+    transform: translateY(-2px);
   }
+}
+
+.clientLogo {
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 /* Projects */

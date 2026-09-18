@@ -161,9 +161,24 @@ export default function Home() {
         />
         <div className={styles.clientGrid}>
           {R.enterpriseClients.map((client) => (
-            <div key={client} className={styles.clientChip}>
-              {client}
-            </div>
+            <a
+              key={client.name}
+              href={client.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.clientChip}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`https://www.google.com/s2/favicons?sz=128&domain=${client.domain}`}
+                alt={`${client.name} logo`}
+                width={22}
+                height={22}
+                className={styles.clientLogo}
+                loading="lazy"
+              />
+              <span>{client.name}</span>
+            </a>
           ))}
         </div>
       </section>

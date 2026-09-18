@@ -51,7 +51,7 @@ export const aboutResume = {
   photo: '/images/rahul.jpeg',
 
   summary:
-    'Sr. full-stack developer and internship manager with 4+ years of experience building scalable backend systems, web applications, and cross-platform mobile apps. Currently leading React Native (iOS & Android) development and mentoring interns, having grown from a MERN / full-stack developer role. Trusted to provide engineering work support for enterprise clients including Walmart, Apple, Oracle, and Samsung Knox. Strong in the MERN stack, React Native, and Python (Django, Flask, FastAPI) — focused on performance, reliability, and clean architecture.',
+    'Sr. full-stack developer and internship manager with 4+ years of experience building scalable backend systems, web applications, and cross-platform mobile apps. Currently leading React Native (iOS & Android) development and mentoring interns, having grown from a MERN / full-stack developer role. Strong in the MERN stack, React Native, and Python (Django, Flask, FastAPI) — focused on performance, reliability, and clean architecture.',
 
   focusAreas: [
     { label: 'Python', detail: 'Django · Flask · FastAPI' },
@@ -60,7 +60,14 @@ export const aboutResume = {
   ],
 
   // Enterprise clients supported through engineering work support.
-  enterpriseClients: ['Walmart', 'Apple', 'Oracle', 'Samsung Knox'],
+  // `url` = official site (chip links here); `domain` = source for the logo icon.
+  enterpriseClients: [
+    { name: 'Walmart', url: 'https://www.walmart.com', domain: 'walmart.com' },
+    { name: 'Apple', url: 'https://www.apple.com', domain: 'apple.com' },
+    { name: 'Oracle', url: 'https://www.oracle.com', domain: 'oracle.com' },
+    { name: 'Samsung Knox', url: 'https://www.samsungknox.com', domain: 'samsung.com' },
+    { name: 'TimesPro', url: 'https://timespro.com', domain: 'timespro.com' },
+  ],
 
   // start / end use 'YYYY-MM'. end: null means "Present" (auto-increasing).
   experience: [
