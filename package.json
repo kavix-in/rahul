@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.127.0",
     "@react-pdf/renderer": "^3.4.5",
     "@vercel/analytics": "^2.0.1",
     "eslint": "8.45.0",

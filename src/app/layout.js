@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/next'
 import { Inter, Unbounded, JetBrains_Mono } from 'next/font/google'
 import Header from '../components/Header';
 import CommandPalette from '../components/CommandPalette';
+import AskResume from '../components/AskResume';
 import SeoJsonLd from '../components/SeoJsonLd';
 import { SITE, absoluteUrl, getMetadataBase } from '../config/site';
 
@@ -99,6 +100,7 @@ export default function RootLayout({ children }) {
         <SeoJsonLd />
         <Header />
         <CommandPalette />
+        <AskResume />
         {children}
         <Analytics />
       </body>
