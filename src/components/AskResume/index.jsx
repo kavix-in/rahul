@@ -1,10 +1,15 @@
 'use client';
 
 /**
- * "Ask my résumé" — a floating AI chat that answers recruiter questions,
- * grounded on Rahul's résumé data via /api/chat (streamed responses).
+ * "Ask my résumé" — a fully self-contained chatbot (no API, no network).
+ * Answers are generated locally from the résumé data by createResumeBot,
+ * with a small typewriter reveal so it still feels conversational.
  */
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { getResume } from '@/data/aboutResume';
+import { projects } from '@/data';
+import { caseStudies } from '@/data/caseStudies';
+import { createResumeBot } from './bot';
 import styles from './style.module.scss';
 
 const SUGGESTIONS = [
@@ -18,10 +23,14 @@ export default function AskResume() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([]); // {role, content}
-  const [streaming, setStreaming] = useState(false);
-  const [unavailable, setUnavailable] = useState(false);
+  const [busy, setBusy] = useState(false);
   const scrollRef = useRef(null);
   const inputRef = useRef(null);
+
+  const bot = useMemo(
+    () => createResumeBot({ resume: getResume(), projects, caseStudies }),
+    []
+  );
 
   useEffect(() => {
     if (open) setTimeout(() => inputRef.current?.focus(), 60);
@@ -29,7 +38,7 @@ export default function AskResume() {
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' });
-  }, [messages, streaming]);
+  }, [messages, busy]);
 
   useEffect(() => {
     const onKey = (e) => e.key === 'Escape' && setOpen(false);
@@ -37,57 +46,46 @@ export default function AskResume() {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
-  async function send(text) {
-    const question = (text ?? input).trim();
-    if (!question || streaming) return;
-    setInput('');
-    setUnavailable(false);
-
-    const next = [...messages, { role: 'user', content: question }];
-    setMessages([...next, { role: 'assistant', content: '' }]);
-    setStreaming(true);
-
-    try {
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ messages: next }),
-      });
-
-      if (res.status === 503) {
-        setUnavailable(true);
-        setMessages(next); // drop the empty assistant bubble
-        setStreaming(false);
-        return;
-      }
-      if (!res.ok || !res.body) throw new Error('request failed');
-
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-      let acc = '';
-      // eslint-disable-next-line no-constant-condition
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        acc += decoder.decode(value, { stream: true });
+  function typeOut(full) {
+    // Reveal the answer progressively for a conversational feel.
+    return new Promise((resolve) => {
+      const step = Math.max(2, Math.round(full.length / 90));
+      let i = 0;
+      const tick = () => {
+        i = Math.min(full.length, i + step);
+        const slice = full.slice(0, i);
         setMessages((prev) => {
           const copy = prev.slice();
-          copy[copy.length - 1] = { role: 'assistant', content: acc };
+          copy[copy.length - 1] = { role: 'assistant', content: slice };
           return copy;
         });
-      }
-    } catch {
-      setMessages((prev) => {
-        const copy = prev.slice();
-        copy[copy.length - 1] = {
-          role: 'assistant',
-          content: 'Sorry — something went wrong. Please try again.',
-        };
-        return copy;
-      });
-    } finally {
-      setStreaming(false);
-    }
+        if (i < full.length) {
+          setTimeout(tick, 16);
+        } else {
+          resolve();
+        }
+      };
+      tick();
+    });
+  }
+
+  async function send(text) {
+    const question = (text ?? input).trim();
+    if (!question || busy) return;
+    setInput('');
+
+    setMessages((prev) => [
+      ...prev,
+      { role: 'user', content: question },
+      { role: 'assistant', content: '' },
+    ]);
+    setBusy(true);
+
+    const reply = bot.answer(question);
+    // Brief "thinking" pause, then type the answer out.
+    await new Promise((r) => setTimeout(r, 350));
+    await typeOut(reply);
+    setBusy(false);
   }
 
   return (
@@ -109,7 +107,7 @@ export default function AskResume() {
           <header className={styles.head}>
             <div>
               <p className={styles.headTitle}>Ask my résumé</p>
-              <p className={styles.headSub}>AI-powered · answers from Rahul&apos;s CV</p>
+              <p className={styles.headSub}>Answers from Rahul&apos;s CV · runs on-device</p>
             </div>
             <button
               type="button"
@@ -146,7 +144,7 @@ export default function AskResume() {
                 className={`${styles.msg} ${m.role === 'user' ? styles.user : styles.assistant}`}
               >
                 {m.content ||
-                  (streaming && i === messages.length - 1 ? (
+                  (busy && i === messages.length - 1 ? (
                     <span className={styles.typing}>
                       <span /><span /><span />
                     </span>
@@ -155,13 +153,6 @@ export default function AskResume() {
                   ))}
               </div>
             ))}
-
-            {unavailable && (
-              <div className={`${styles.msg} ${styles.assistant}`}>
-                The AI chat isn&apos;t enabled on this deployment yet. You can still reach
-                Rahul directly via the Contact section.
-              </div>
-            )}
           </div>
 
           <form
@@ -182,7 +173,7 @@ export default function AskResume() {
             <button
               type="submit"
               className={styles.sendBtn}
-              disabled={streaming || !input.trim()}
+              disabled={busy || !input.trim()}
               aria-label="Send"
             >
               ↑
