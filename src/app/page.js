@@ -196,7 +196,8 @@ export default function Home() {
         <p className={styles.swipeHint}>Swipe to explore →</p>
         <div className={styles.projectGrid}>
           {projects.map((p) => {
-            const hasCase = Boolean(caseStudies[p.slug]);
+            const cs = caseStudies[p.slug];
+            const hasCase = Boolean(cs);
             const cardInner = (
               <>
                 <div className={styles.projectThumb}>
@@ -207,19 +208,33 @@ export default function Home() {
                     sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 380px"
                     className={styles.projectImg}
                   />
+                </div>
+                <div className={styles.projectBody}>
+                  <h3 className={styles.projectTitle}>{p.title}</h3>
+                  <p className={styles.projectDesc}>
+                    {hasCase ? cs.summary : p.description}
+                  </p>
                   {hasCase && (
-                    <span className={styles.caseBadge}>Case study</span>
+                    <div className={styles.projectStack}>
+                      {cs.stack.slice(0, 3).map((t) => (
+                        <span key={t} className={styles.stackTag}>{t}</span>
+                      ))}
+                      {cs.stack.length > 3 && (
+                        <span className={styles.stackMore}>
+                          +{cs.stack.length - 3}
+                        </span>
+                      )}
+                    </div>
                   )}
+                  <div className={styles.projectFooter}>
+                    <span className={styles.projectAction}>
+                      {hasCase ? 'View case study' : 'Visit site'}
+                    </span>
+                    <span className={styles.projectArrow} aria-hidden>
+                      {hasCase ? '→' : '↗'}
+                    </span>
+                  </div>
                 </div>
-                <div className={styles.projectInfo}>
-                  <h3>{p.title}</h3>
-                  <span className={styles.projectArrow} aria-hidden>
-                    {hasCase ? '→' : '↗'}
-                  </span>
-                </div>
-                <p className={styles.projectDesc}>
-                  {hasCase ? caseStudies[p.slug].summary : p.description}
-                </p>
               </>
             );
 
