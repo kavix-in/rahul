@@ -52,7 +52,7 @@ export const aboutResume = {
 
   // `{years}` is replaced with the live total from getResume().
   summary:
-    'Senior full-stack developer with {years} years of experience building backend systems, web apps, and React Native mobile apps for iOS and Android. Promoted within 12 months at Larklabs.ai to lead mobile development and the internship program, supporting 5 enterprise clients including Walmart, Apple, and Oracle. Cut API response times by ~25% and improved MongoDB responsiveness by ~30%; shipped 19+ production client websites, 8 of them on headless CMS (Payload, Strapi). Core stack: Python (Django, Flask, FastAPI), MERN, and React Native.',
+    'Senior full-stack developer with {years} years of experience building backend systems, web apps, and React Native mobile apps for iOS and Android. Promoted within 12 months at Larklabs.ai to lead mobile development and mentor 20 interns, supporting 5 enterprise clients including Walmart, Apple, and Oracle. Built backends for apps serving 50k+ daily users, cut API response times by ~25%, and reduced data latency by 40%; shipped 19+ production client websites, 8 of them on headless CMS (Payload, Strapi). Core stack: Python (Django, Flask, FastAPI), MERN, and React Native.',
 
   focusAreas: [
     { label: 'Python', detail: 'Django · Flask · FastAPI' },
@@ -79,11 +79,12 @@ export const aboutResume = {
       start: '2025-10',
       end: null,
       bullets: [
-        'Lead React Native development, shipping production apps to 2 platforms (iOS and Android) from 1 shared codebase.',
-        'Build Python backends for AI-powered features plus REST APIs and microservices for real-time analytics dashboards, cutting response times by ~25%.',
-        'Maintain 100% React test coverage with Jest and React Testing Library, and own CI/CD pipelines and Kafka messaging across core backend services.',
-        'Deliver engineering support for 5 enterprise clients: Walmart, Apple, Oracle, Samsung Knox, and TimesPro.',
-        'Manage and mentor the internship program across 3 stages (onboarding, guided project work, and code review), collaborating with senior engineers to turn interns into productive contributors.',
+        'Lead React Native development of 3 production apps for iOS and Android from 1 shared codebase.',
+        'Manage and mentor 20 interns through onboarding, guided project work, and code review, collaborating with senior engineers to turn them into productive contributors.',
+        'Architect REST APIs and microservices with Python and the MERN stack, improving real-time analytics dashboard performance by 35%.',
+        'Build Python backends for AI-powered features, cutting response times by ~25%.',
+        'Own CI/CD pipelines and Kafka messaging across 15+ backend services, reducing deployment time by 20%, and maintain 100% React test coverage with Jest and React Testing Library.',
+        'Deliver engineering support for 5 enterprise clients (Walmart, Apple, Oracle, Samsung Knox, and TimesPro) at 99.9% uptime.',
       ],
     },
     {
@@ -93,9 +94,12 @@ export const aboutResume = {
       start: '2024-08',
       end: '2025-09',
       bullets: [
+        'Built Python and Node.js backends, including Freemarker server-side templates for personalized dashboards, for 5 international enterprise apps serving 50k+ daily users.',
+        'Connected Python data pipelines to React frontends for real-time reporting, reducing data latency by 40%.',
         'Optimized MongoDB queries and schemas, improving responsiveness by ~30% under high concurrency.',
-        'Built Python and Node.js backends for international enterprise apps and connected Python data pipelines to React frontends for real-time reporting.',
-        'Connected microservices through Kafka messaging and secured 2 layers, authentication and authorization, with Flask, JWT, and Passport.',
+        'Implemented Kafka messaging across 10+ microservices, increasing system throughput by 25%.',
+        'Secured 100% of services with Flask, JWT, and Passport authentication and authorization.',
+        'Migrated on-premise servers to AWS and set up automated health monitoring to catch performance bottlenecks early.',
       ],
     },
     {
@@ -105,10 +109,11 @@ export const aboutResume = {
       start: '2021-06',
       end: '2024-07',
       bullets: [
-        'Designed and maintained Python (Django / Flask) backends for 3 years and moved them to microservices, making site loads ~25% faster.',
-        'Built React Native mobile features for 2 platforms (iOS and Android) alongside the web product.',
-        'Wrote unit and integration tests that kept production reliability at 99.9%.',
-        'Resolved 3+ critical production tickets daily and automated recurring internal workflows with Python to cut manual work.',
+        'Designed and maintained Python (Django / Flask) backends for 3 years at 99.9% availability, and moved them to microservices for ~25% faster site loads.',
+        'Built 15+ React Native features for iOS and Android alongside the web product, increasing mobile engagement by 30%.',
+        'Automated 5 internal workflows with Python, saving the team 15 hours per week.',
+        'Configured NGINX as a reverse proxy and refactored legacy frontend components to TypeScript, improving load times and type safety.',
+        'Resolved 3+ critical production tickets daily, backed by unit and integration tests that kept production reliability at 99.9%.',
       ],
     },
   ],
@@ -132,10 +137,10 @@ export const aboutResume = {
     primary:
       'Python (Django, Flask, FastAPI), MERN stack (MongoDB, Express, React, Node.js), React Native for cross-platform mobile.',
     programming:
-      'Python, JavaScript (ES6+), TypeScript, Next.js, React, React Native, Three.js, Java, C++, SQL, HTML5, CSS3 / SCSS.',
+      'Python, JavaScript (ES6+), TypeScript, Rust, Next.js, React, React Native, Three.js, Java, C++, SQL, Freemarker, HTML5, CSS3 / SCSS.',
     databases: 'PostgreSQL, MongoDB, MySQL, Redis.',
     tools:
-      'Git, Docker, AWS (S3, Amplify), Jenkins, CI/CD, Expo, Kafka, Agile/Scrum, PyTest, Jest & React Testing Library (100% coverage), Figma, AI-assisted development (Claude).',
+      'Git, NPM, Docker, AWS (EC2, S3, Amplify), NGINX, Jenkins, CI/CD, Expo, Kafka, Agile/Scrum, PyTest, Jest & React Testing Library (100% coverage), Figma, AI-assisted development (Claude).',
     cms:
       'Payload CMS and Strapi — built 8 headless-CMS sites that let non-technical teams update content, images, and media without code changes.',
   },
