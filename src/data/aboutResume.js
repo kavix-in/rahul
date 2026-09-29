@@ -50,8 +50,9 @@ export const aboutResume = {
   resumePdf: '/resume',
   photo: '/images/rahul.jpeg',
 
+  // `{years}` is replaced with the live total from getResume().
   summary:
-    'Sr. full-stack developer and internship manager with 4+ years of experience building scalable backend systems, web applications, and cross-platform mobile apps. Currently leading React Native (iOS & Android) development and mentoring interns, having grown from a MERN / full-stack developer role. Strong in the MERN stack, React Native, and Python (Django, Flask, FastAPI) — focused on performance, reliability, and clean architecture.',
+    'Senior full-stack developer with {years} years of experience building backend systems, web apps, and React Native mobile apps for iOS and Android. Promoted within 12 months at Larklabs.ai to lead mobile development and the internship program, supporting 5 enterprise clients including Walmart, Apple, and Oracle. Cut API response times by ~25% and improved MongoDB responsiveness by ~30%; shipped 19+ production client websites, 8 of them on headless CMS (Payload, Strapi). Core stack: Python (Django, Flask, FastAPI), MERN, and React Native.',
 
   focusAreas: [
     { label: 'Python', detail: 'Django · Flask · FastAPI' },
@@ -78,14 +79,11 @@ export const aboutResume = {
       start: '2025-10',
       end: null,
       bullets: [
-        'Leading cross-platform mobile development with React Native, shipping production apps for both iOS and Android.',
-        'Managing and mentoring the internship program — onboarding, guiding, and reviewing the work of intern developers.',
-        'Architecting scalable REST APIs and microservices with Python and the MERN stack for real-time analytics dashboards.',
-        'Spearheading Python-based backends for AI-driven features, improving response times by ~25%.',
-        'Owning CI/CD pipelines and Kafka-based event-driven communication across core backend services.',
-        'Providing engineering work support for enterprise clients including Walmart, Apple, Oracle, and Samsung Knox.',
-        'Achieving 100% React test coverage using Jest and React Testing Library.',
-        'Progressed here from a MERN / full-stack developer role into senior mobile development and internship management.',
+        'Lead React Native development, shipping production apps to 2 platforms (iOS and Android) from 1 shared codebase.',
+        'Build Python backends for AI-powered features plus REST APIs and microservices for real-time analytics dashboards, cutting response times by ~25%.',
+        'Maintain 100% React test coverage with Jest and React Testing Library, and own CI/CD pipelines and Kafka messaging across core backend services.',
+        'Deliver engineering support for 5 enterprise clients: Walmart, Apple, Oracle, Samsung Knox, and TimesPro.',
+        'Manage and mentor the internship program across 3 stages (onboarding, guided project work, and code review), collaborating with senior engineers to turn interns into productive contributors.',
       ],
     },
     {
@@ -95,11 +93,9 @@ export const aboutResume = {
       start: '2024-08',
       end: '2025-09',
       bullets: [
-        'Engineered backend logic with Python and Node.js for international enterprise applications.',
-        'Integrated Python data pipelines with React frontends for dynamic real-time reporting.',
-        'Optimized MongoDB queries and schemas (~30% responsiveness gain under high concurrency).',
-        'Implemented event-driven patterns with Kafka between microservices.',
-        'Secured services with Flask, JWT, and Passport for authentication and authorization.',
+        'Optimized MongoDB queries and schemas, improving responsiveness by ~30% under high concurrency.',
+        'Built Python and Node.js backends for international enterprise apps and connected Python data pipelines to React frontends for real-time reporting.',
+        'Connected microservices through Kafka messaging and secured 2 layers, authentication and authorization, with Flask, JWT, and Passport.',
       ],
     },
     {
@@ -109,12 +105,10 @@ export const aboutResume = {
       start: '2021-06',
       end: '2024-07',
       bullets: [
-        'Designed and maintained complex backends with Python (Django / Flask) over three years.',
-        'Built cross-platform mobile features with React Native alongside the web product.',
-        'Delivered a high-performance microservices architecture (~25% faster site loads).',
-        'Automated internal workflows with Python, reducing operational overhead.',
-        'Maintained unit and integration tests targeting 99.9% production reliability.',
-        'Resolved 3+ critical production tickets daily with focus on backend stability.',
+        'Designed and maintained Python (Django / Flask) backends for 3 years and moved them to microservices, making site loads ~25% faster.',
+        'Built React Native mobile features for 2 platforms (iOS and Android) alongside the web product.',
+        'Wrote unit and integration tests that kept production reliability at 99.9%.',
+        'Resolved 3+ critical production tickets daily and automated recurring internal workflows with Python to cut manual work.',
       ],
     },
   ],
@@ -123,14 +117,14 @@ export const aboutResume = {
     {
       school: 'RKDF College, Bhopal, MP',
       credential: 'B.Tech in Computer Science',
-      period: 'Aug 2022 – June 2026',
-      note: 'GPA 8.2',
+      period: 'Aug 2022 – Jun 2026',
+      note: 'CGPA 8.2 / 10',
     },
     {
       school: "St. Karen's Secondary School, Patna, Bihar",
       credential: '12th Grade (Higher Secondary)',
       period: 'Completed 2018',
-      note: 'CGPA 8.1',
+      note: 'CGPA 8.1 / 10',
     },
   ],
 
@@ -138,17 +132,17 @@ export const aboutResume = {
     primary:
       'Python (Django, Flask, FastAPI), MERN stack (MongoDB, Express, React, Node.js), React Native for cross-platform mobile.',
     programming:
-      'Python, JavaScript (ES6+), Next.js, React, React Native, Three.js, Java, C++, SQL, HTML5, CSS3 / SCSS.',
+      'Python, JavaScript (ES6+), TypeScript, Next.js, React, React Native, Three.js, Java, C++, SQL, HTML5, CSS3 / SCSS.',
     databases: 'PostgreSQL, MongoDB, MySQL, Redis.',
     tools:
-      'Git, Docker, Jenkins, CI/CD, Expo, Kafka, Agile/Scrum, PyTest, Jest & React Testing Library (100% coverage), Claude / AI prompting, Presentation slides, Figma & Google Flow (basics).',
+      'Git, Docker, AWS (S3, Amplify), Jenkins, CI/CD, Expo, Kafka, Agile/Scrum, PyTest, Jest & React Testing Library (100% coverage), Figma, AI-assisted development (Claude).',
     cms:
-      'Payload CMS — building fully editable, headless-CMS-backed sites so non-technical users can update content, images, and media without touching code.',
+      'Payload CMS and Strapi — built 8 headless-CMS sites that let non-technical teams update content, images, and media without code changes.',
   },
 
   projects: [
     {
-      title: 'AI-Driven Inventory Management System',
+      title: 'AI-Powered Inventory Management System',
       stack: 'Python & React',
       period: 'Aug 2025 – Dec 2025',
       bullets: [
@@ -187,6 +181,7 @@ export function getResume(now = new Date()) {
 
   return {
     ...aboutResume,
+    summary: aboutResume.summary.replace('{years}', `${totalYears}+`),
     experience,
     yearsExperience: `${totalYears}+`,
   };

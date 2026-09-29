@@ -49,7 +49,8 @@ const styles = StyleSheet.create({
     fontSize: 9,
     fontFamily: 'Helvetica-Bold',
     color: COLORS.ink,
-    letterSpacing: 1.4,
+    // No letterSpacing: react-pdf spaces each glyph, so ATS parsers read
+    // "S U M M A R Y" and miss the section heading.
     textTransform: 'uppercase',
     marginBottom: 7,
   },
