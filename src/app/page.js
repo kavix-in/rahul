@@ -269,10 +269,7 @@ export default function Home() {
             <div key={ed.school} className={styles.eduCard}>
               <h3>{ed.school}</h3>
               <p className={styles.eduCred}>{ed.credential}</p>
-              <p className={styles.eduMeta}>
-                {ed.period}
-                {ed.note ? ` · ${ed.note}` : ''}
-              </p>
+              {ed.note ? <p className={styles.eduMeta}>{ed.note}</p> : null}
             </div>
           ))}
         </div>

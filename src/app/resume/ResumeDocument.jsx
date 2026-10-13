@@ -211,9 +211,7 @@ export default function ResumeDocument({ resume: R, projects = [] }) {
             <View key={ed.school} style={styles.eduItem}>
               <Text style={styles.eduSchool}>{ed.school}</Text>
               <Text style={styles.eduCred}>{ed.credential}</Text>
-              <Text style={styles.eduMeta}>
-                {ed.period}{ed.note ? ` · ${ed.note}` : ''}
-              </Text>
+              {ed.note ? <Text style={styles.eduMeta}>{ed.note}</Text> : null}
             </View>
           ))}
         </Section>

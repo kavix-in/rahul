@@ -139,7 +139,10 @@ export function createResumeBot({ resume, projects, caseStudies }) {
       keys: ['education', 'degree', 'college', 'university', 'study', 'studied', 'graduate', 'b.tech', 'btech', 'academic'],
       answer: () =>
         R.education
-          .map((e) => `${e.credential} — ${e.school} (${e.period}${e.note ? `, ${e.note}` : ''})`)
+          .map((e) => {
+            const note = e.note ? ` (${e.note})` : '';
+            return `${e.credential} — ${e.school}${note}`;
+          })
           .join('\n'),
     },
     {

@@ -122,13 +122,11 @@ export const aboutResume = {
     {
       school: 'RKDF College, Bhopal, MP',
       credential: 'B.Tech in Computer Science',
-      period: 'Aug 2022 – Jun 2026',
       note: 'CGPA 8.2 / 10',
     },
     {
       school: "St. Karen's Secondary School, Patna, Bihar",
       credential: '12th Grade (Higher Secondary)',
-      period: 'Completed 2018',
       note: 'CGPA 8.1 / 10',
     },
   ],
